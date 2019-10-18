@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursePageItem } from '../../course-item';
+import { CoursePage } from '../../course-item';
 
 @Component({
   selector: 'app-course-page',
@@ -8,26 +8,30 @@ import { CoursePageItem } from '../../course-item';
 })
 export class CoursePageComponent implements OnInit {
 
-  public courseItems: CoursePageItem[] = [
+  public courseItems: Array<CoursePage> = [
     {
       id: 1,
       title: 'Video course name',
-      description: 'fggdfg dgfdfg gdfgd'
+      description: 'fggdfg dgfdfg gdfgd',
+      duration: 30
     },
     {
       id: 2,
       title: 'Video course name',
-      description: 'sdfsdfs gss sggsfg gsfg sgsgs g'
+      description: 'sdfsdfs gss sggsfg gsfg sgsgs g',
+      duration: 40
     },
     {
       id: 3,
       title: 'Video course name',
-      description: 'fdf gsdsf dgfdfgdf dhdghrqertqrt tretw'
+      description: 'fdf gsdsf dgfdfgdf dhdghrqertqrt tretw',
+      duration: 45
     },
     {
       id: 4,
       title: 'Video course name',
-      description: 'fggdfg dgfdfg gdfgd lorem'
+      description: 'fggdfg dgfdfg gdfgd lorem',
+      duration: 56
     }
   ]
 

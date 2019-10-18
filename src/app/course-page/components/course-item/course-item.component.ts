@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CoursePageItem } from '../../course-item'
+import { CoursePage } from '../../course-item'
 
 @Component({
   selector: 'app-course-item',
@@ -8,7 +8,7 @@ import { CoursePageItem } from '../../course-item'
 })
 export class CourseItemComponent implements OnInit {
 
-  @Input() public courseItem: CoursePageItem;
+  @Input() public courseItem: CoursePage;
 
   constructor() { }
 
