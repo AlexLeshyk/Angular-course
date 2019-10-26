@@ -1,4 +1,4 @@
-interface CoursePageItem {
+interface ICourseItem {
   id: number;
   title: string;
   description: string;
@@ -6,12 +6,13 @@ interface CoursePageItem {
   duration: number
 }
 
-export class CoursePage implements CoursePageItem {
+export class CourseItem implements ICourseItem {
   constructor(
     public id: number,
     public title: string,
     public description: string,
-    public duration: number
+    public duration: number,
+    public dateObj: any
   ) {
   }
 }

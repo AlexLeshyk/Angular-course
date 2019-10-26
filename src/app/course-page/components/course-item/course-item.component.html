@@ -1,5 +1,13 @@
 <div class="course-item">
-  <h4>{{ courseItem.title }} #{{ courseItem.id }}</h4>
-  <span>{{ courseItem.duration }} min</span>
-  <p>{{ courseItem.description }}</p>
+  <div class="course-item-info">
+    <h4>{{ courseItem.title }} #{{ courseItem.id }}</h4>
+    <span class="duration">{{ courseItem.duration }} min</span>
+    <span class="date">{{ courseItem.dateObj | date}}</span>
+    <p>{{ courseItem.description }}</p>
+  </div>
+  <div class="course-item-buttons">
+    <button class="secondary-btn">Edit</button>
+    <button class="secondary-btn" (click)="delete()">Delete</button>
+  </div>
+  <!-- <p>{{counter}}</p> -->
 </div>
