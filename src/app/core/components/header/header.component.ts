@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserEntity } from '../../user-entity';
+import { UserEntity } from '../../models/user-entity.model';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +8,7 @@ import { UserEntity } from '../../user-entity';
 })
 export class HeaderComponent implements OnInit {
 
+  public content: string = 'content here';
   public usersEntity: Array<UserEntity> = [
     {
       id: 1,

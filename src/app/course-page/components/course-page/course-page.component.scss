@@ -1,3 +1,14 @@
 .course-wrapper {
   padding: 30px 0 20px;
+  background: #f2f3f7;
+
+  .btn {
+    font-size: 14px;
+    padding: 6px 20px 6px 40px;
+  }
+
+  .add-course-wrapper {
+    padding-bottom: 12px;
+    text-align: right;
+  }
 }

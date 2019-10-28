@@ -4,3 +4,57 @@
   margin: 0 auto;
   max-width: 1220px;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+.primary-btn {
+  height: 48px;
+  padding: 0 20px;
+  margin: 0;
+  font-family: 'SourceSansPro', sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5rem;
+  letter-spacing: -0.13px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #9bc837;
+  border: none;
+  border-radius: 3px;
+}
+
+.secondary-btn {
+  padding: 3px 12px;
+  font-family: 'SourceSansPro', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.83;
+  letter-spacing: -0.09px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #30b6dd;
+  border: none;
+  border-radius: 3px;
+}
+
+body {
+  font-family: 'SourceSansPro', sans-serif;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: #2c2f3c;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
