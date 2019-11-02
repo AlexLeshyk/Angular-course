@@ -23,4 +23,9 @@ describe('CoursePageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should increment counter of add course by 1', () => {
+    component.change();
+    expect(component.counter).toBe(1);
+  });
 });

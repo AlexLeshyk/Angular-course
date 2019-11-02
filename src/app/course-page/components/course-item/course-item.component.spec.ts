@@ -16,10 +16,24 @@ describe('CourseItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
+    component.courseItem = {
+        id: 1,
+        title: 'one',
+        description: 'one',
+        dateObj: 'Feb 25, 2018',
+        duration: 12
+    };
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should delete course by id with event emitter property', () => {
+      let result = null;
+      component.onDelete.subscribe(value => result = value);
+      component.delete();
+      expect(result).toBe(component.courseItem.id);
   });
 });
