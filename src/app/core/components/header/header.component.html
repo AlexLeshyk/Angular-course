@@ -3,7 +3,7 @@
     <app-logo></app-logo>
     <app-login-buttons></app-login-buttons>
   </div>
-  <div *ngFor="let user of usersEntity">{{ content }}</div>
+  <div *ngFor="let user of usersEntity">{{ user.firstName }}</div>
 </header>
 <div class="container">
   <app-breadcrumbs></app-breadcrumbs>
