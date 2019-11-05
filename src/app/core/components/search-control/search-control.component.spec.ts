@@ -24,4 +24,9 @@ describe('SearchControlComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should be input value', () => {
+    component.onClick();
+    expect(component.inputValue).toBe('text to search');
+  });
 });
