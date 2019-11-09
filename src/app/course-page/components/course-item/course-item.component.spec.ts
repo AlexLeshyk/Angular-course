@@ -34,7 +34,7 @@ describe('CourseItemComponent', () => {
 
   it('should delete course by id with event emitter property', () => {
       let result = null;
-      component.onDelete.subscribe(value => result = value);
+      component.onDelete.subscribe(value => result = value.id);
       component.delete();
       expect(result).toBe(component.courseItem.id);
   });
@@ -52,14 +52,14 @@ describe('CourseItemComponent', () => {
     const courseEl: CourseItem = {id: 1, title: 'one', description: 'one', dateObj: 'Feb 25, 2018', duration: 12 };
     component.courseItem = courseEl;
 
-    component.deletedItem.subscribe((selectedHero: CourseItem) => expect(selectedHero).toBe(courseEl));
-    component.deleteClicked();
+    component.onDelete.subscribe((selectedHero: CourseItem) => expect(selectedHero).toBe(courseEl));
+    component.delete();
   });
 
   it('should raise deleted event when cicked on button (triggerEventHandler)', () => {
     let selectedCourse: CourseItem;
     const courseDe: DebugElement = fixture.debugElement.query(By.css('.delete-btn'));
-    component.deletedItem.subscribe((course: CourseItem) => selectedCourse = course);
+    component.onDelete.subscribe((course: CourseItem) => selectedCourse = course);
     courseDe.triggerEventHandler('click', null);
     expect(selectedCourse).toEqual(expectedCourse);
   });
@@ -67,7 +67,7 @@ describe('CourseItemComponent', () => {
   it('should raise deleted event when clicked (element.click)', () => {
     let selectedCourse: CourseItem;
     const courseEl = fixture.nativeElement.querySelector('.delete-btn');
-    component.deletedItem.subscribe((hero: CourseItem) => selectedCourse = hero);
+    component.onDelete.subscribe((hero: CourseItem) => selectedCourse = hero);
     courseEl.click();
     expect(selectedCourse).toEqual(expectedCourse);
   });
