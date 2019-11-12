@@ -10,7 +10,7 @@ export class CourseItemComponent implements OnInit, OnChanges {
 
   @Input() public courseItem: CourseItem;
   @Input() public counter: number;
-  @Output('onDeleteItem') onDelete: EventEmitter<number> = new EventEmitter<number>();
+  @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
   constructor() { }
 
@@ -23,8 +23,7 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public delete(): void {
-    this.onDelete.emit(this.courseItem.id);
-    console.log(this.courseItem.id);
+    this.onDelete.emit(this.courseItem);
   }
 
 }

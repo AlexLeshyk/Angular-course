@@ -56,8 +56,9 @@ export class CoursePageComponent implements OnInit {
     console.log('OnInit CoursePage Component', this.counter);
   }
 
-  public onRootDelete(id: number): void {
-    this.courseItems = this.courseItems.filter((item: CourseItem) => item.id !== id);
+  public onRootDelete(item: CourseItem): void {
+    this.courseItems = this.courseItems.filter((course: CourseItem) => course.id !== item.id);
+    console.log(item.id);
   }
 
 }
