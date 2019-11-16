@@ -4,6 +4,7 @@ interface ICourseItem {
   description: string;
   createDate?: object;
   duration: number
+  topRated: boolean
 }
 
 export class CourseItem implements ICourseItem {
@@ -12,7 +13,8 @@ export class CourseItem implements ICourseItem {
     public title: string,
     public description: string,
     public duration: number,
-    public dateObj: any
+    public dateObj: any,
+    public topRated: boolean
   ) {
   }
 }

@@ -7,6 +7,36 @@
   box-shadow: 0 1px 24px 0 rgba(18, 21, 35, 0.08);
   display: flex;
   align-items: flex-end;
+  border: 1px solid transparent;
+
+  &.fresh {
+    border-color: green;
+  }
+
+  &.upcoming {
+    border-color: blue;
+  }
+
+  &.top-rated {
+    background-color: #30b6dd;
+
+    p, h4, span {
+      color: #ffffff;
+    }
+
+    .secondary-btn {
+      background-color: #fff;
+      color: #30b6dd;
+    }
+
+    h4::after {
+      content: '';
+      border: 10px solid transparent;
+      border-bottom: 10px solid #fff;
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
 
   h4 {
     margin: 0 0 20px;

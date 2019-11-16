@@ -3,10 +3,12 @@
     <div class="add-course-wrapper">
       <button (click)="change()" class="btn secondary-btn">Add course</button>
     </div>
+    <div *ngIf="isShowCourse" class="no-date-info">No data.Fell free to add new course</div>
     <app-course-item
       *ngFor="let course of courseItems"
       [courseItem]="course"
       [counter]="counter"
+      [courseItemFromParent]="course"
       (onDeleteItem)="onRootDelete($event)"
       ></app-course-item>
   </div>
