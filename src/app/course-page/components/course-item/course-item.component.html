@@ -1,13 +1,14 @@
 <div class="course-item"
-  app-style-border
-  border-fresh="fresh"
-  border-upcoming="upcoming"
+  app-course-item-style
+  fresh-course="fresh"
+  upcoming-course="upcoming"
+  [hover-class]="'class'"
   [courseItemFromParent]=courseItem
   [ngClass]="{'top-rated': courseItem.topRated }">
   <div class="course-item-info">
     <h4>{{ courseItem.title | uppercase }} #{{ courseItem.id }}</h4>
-    <span class="duration">{{ courseItem.duration }} min</span>
-    <span class="date">{{ courseItem.dateObj | date}}</span>
+    <span class="duration">{{ courseItem.duration | duration }}</span>
+    <span class="date">{{ courseItem.dateObj | date:'d MMMM, y' }}</span>
     <p>{{ courseItem.description }}</p>
   </div>
   <div class="course-item-buttons">

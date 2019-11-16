@@ -13,7 +13,7 @@ export class CoursePageComponent implements OnInit {
       id: 1,
       title: 'Video course name',
       description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      duration: 30,
+      duration: 130,
       dateObj: Date.parse("January 26, 2020"),
       topRated: false
     },
@@ -29,7 +29,7 @@ export class CoursePageComponent implements OnInit {
       id: 3,
       title: 'Video course name',
       description: 'fdf gsdsf dgfdfgdf dhdghrqertqrt tretw',
-      duration: 45,
+      duration: 95,
       dateObj: Date.parse("Feb 20, 2020"),
       topRated: false
     },
@@ -53,7 +53,7 @@ export class CoursePageComponent implements OnInit {
       id: 6,
       title: 'Video course name',
       description: 'fggdfg dgfdfg gdfgd lorem',
-      duration: 22,
+      duration: 202,
       dateObj: Date.parse("Oct 30, 2019"),
       topRated: true
     }
