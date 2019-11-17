@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search-control',
@@ -7,15 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchControlComponent implements OnInit {
 
-  public inputValue = 'text to search';
+  @Input() inputValue: string;
+  @Output() onValueChanged = new EventEmitter<string>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public onClick(): void {
     console.log('значение из Input - ', this.inputValue);
+  }
+
+  onChange(){
+    this.onValueChanged.emit(this.inputValue);
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="search-block-wrapper">
   <div class="container">
-    <input [(ngModel)]="inputValue">
+    <input type="text" [(ngModel)]="inputValue" (ngModelChange)="onChange($event)"/>
     <button class="primary-btn" (click)="onClick()">Search</button>
   </div>
 </div>

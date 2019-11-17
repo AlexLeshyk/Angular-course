@@ -1,11 +1,15 @@
 <div class="course-wrapper">
   <div class="container">
+    <app-search-control
+      (onValueChanged)="onValueInParentChanged($event)"
+      [inputValue]="inputParentValue">
+    </app-search-control>
     <div class="add-course-wrapper">
       <button (click)="change()" class="btn secondary-btn">Add course</button>
     </div>
     <div *ngIf="isShowCourse" class="no-date-info">No data.Fell free to add new course</div>
     <app-course-item
-      *ngFor="let course of courseItems"
+      *ngFor="let course of courseItems | sort:'dateObj' | filter:inputParentValue"
       [courseItem]="course"
       [counter]="counter"
       [courseItemFromParent]="course"
