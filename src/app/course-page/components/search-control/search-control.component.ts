@@ -18,8 +18,9 @@ export class SearchControlComponent implements OnInit {
     console.log('значение из Input - ', this.inputValue);
   }
 
-  onChange(){
-    this.onValueChanged.emit(this.inputValue);
+  onChange(event){
+    this.inputValue = event;
+    this.onValueChanged.emit(event);
   }
 
 }

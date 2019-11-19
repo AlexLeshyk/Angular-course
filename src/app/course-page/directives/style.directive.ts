@@ -13,17 +13,15 @@ export class StyleDirective {
   public date = new Date();
   public freshCourseDate: number = this.date.setDate( this.date.getDate() - 14 );
 
-  constructor( private elRef: ElementRef, private r: Renderer2) {
-    // this.r.setStyle(this.elRef.nativeElement, 'borderColor', 'blue');
-    // this.r.addClass(this.elRef.nativeElement, this.freshCourse);
+  constructor( private ElementRef: ElementRef, private renderer: Renderer2) {
   }
 
   ngOnInit() {
     if ( this.courseItem.dateObj < this.currentDate && this.courseItem.dateObj >= this.freshCourseDate) {
-      this.r.addClass(this.elRef.nativeElement, 'fresh');
+      this.renderer.addClass(this.ElementRef.nativeElement, 'fresh');
     }
     if (this.courseItem.dateObj > this.currentDate) {
-      this.r.addClass(this.elRef.nativeElement, 'upcoming' );
+      this.renderer.addClass(this.ElementRef.nativeElement, 'upcoming' );
     }
   }
 

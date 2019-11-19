@@ -8,7 +8,7 @@ import { CourseItem } from '../../models/course-item.model';
 })
 export class CoursePageComponent implements OnInit {
 
-  inputParentValue = 'course';
+  inputValue = 'course';
 
   public courseItems: Array<CourseItem> = [
     {
@@ -49,7 +49,7 @@ export class CoursePageComponent implements OnInit {
       description: 'fggdfg dgfdfg gdfgd lorem',
       duration: 67,
       dateObj: Date.parse("Nov 11, 2019"),
-      topRated: false
+      topRated: true
     },
     {
       id: 6,
@@ -85,8 +85,8 @@ export class CoursePageComponent implements OnInit {
     console.log(item.id);
   }
 
-  onValueInParentChanged(value: string) {
-    this.inputParentValue = value;
+  onValueChanged(value: string) {
+    this.inputValue = value;
   }
 
 }
