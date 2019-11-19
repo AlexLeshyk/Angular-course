@@ -1,9 +1,4 @@
-<div class="course-item"
-  app-course-item-style
-  fresh-course="fresh"
-  upcoming-course="upcoming"
-  [hover-class]="'class'"
-  [courseItemFromParent]=courseItem
+<div class="course-item" app-course-item-style [courseItem]=courseItem
   [ngClass]="{'top-rated': courseItem.topRated }">
   <div class="course-item-info">
     <h4>{{ courseItem.title | uppercase }} #{{ courseItem.id }}</h4>

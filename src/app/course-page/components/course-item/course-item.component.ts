@@ -11,7 +11,6 @@ export class CourseItemComponent implements OnInit, OnChanges {
   @Input() public courseItem: CourseItem;
   @Input() public counter: number;
   @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
-  @Input('courseItemFromParent') courseItemP : CourseItem;
 
   constructor() {
   }

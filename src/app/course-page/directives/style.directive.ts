@@ -5,32 +5,30 @@ import { CourseItem } from '../models/course-item.model';
   selector: '[app-course-item-style]'
 })
 export class StyleDirective {
-  @Input('fresh-course') freshCourse: string = '';
-  @Input('upcoming-course') upComCourse: string = '';
-  @Input('hover-class') classOnHover: string = '';
-  @Input('courseItemFromParent') courseItemP : CourseItem;
+  @Input('courseItem') courseItem : CourseItem;
 
   @HostBinding('class.highlighted') highlightedClass = null;
 
-  public freshCourseDate = Date.now() - 14*1000*60*60*24;
   public currentDate = Date.now();
+  public date = new Date();
+  public freshCourseDate: number = this.date.setDate( this.date.getDate() - 14 );
 
   constructor( private elRef: ElementRef, private r: Renderer2) {
-    // this.r.setStyle(this.elRef.nativeElement, 'borderColor', this.freshCourse);
+    // this.r.setStyle(this.elRef.nativeElement, 'borderColor', 'blue');
     // this.r.addClass(this.elRef.nativeElement, this.freshCourse);
   }
 
   ngOnInit() {
-    if ( this.courseItemP.dateObj < this.currentDate && this.courseItemP.dateObj >= this.freshCourseDate) {
-      this.r.addClass(this.elRef.nativeElement, this.freshCourse );
+    if ( this.courseItem.dateObj < this.currentDate && this.courseItem.dateObj >= this.freshCourseDate) {
+      this.r.addClass(this.elRef.nativeElement, 'fresh');
     }
-    if (this.courseItemP.dateObj > this.currentDate) {
-      this.r.addClass(this.elRef.nativeElement, this.upComCourse );
+    if (this.courseItem.dateObj > this.currentDate) {
+      this.r.addClass(this.elRef.nativeElement, 'upcoming' );
     }
   }
 
   @HostListener('mouseenter') onHover() {
-    this.highlightedClass = this.classOnHover;
+    this.highlightedClass = 'highlighted';
   }
 
   @HostListener('mouseleave') onLeaveHover() {

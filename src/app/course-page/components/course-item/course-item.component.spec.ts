@@ -23,7 +23,8 @@ describe('CourseItemComponent', () => {
         title: 'one',
         description: 'one',
         dateObj: 'Feb 25, 2018',
-        duration: 12
+        duration: 12,
+        topRated: true
     };
     fixture.detectChanges();
   });
@@ -44,12 +45,13 @@ describe('CourseItemComponent', () => {
       title: 'one',
       description: 'one',
       dateObj: 'Feb 25, 2018',
-      duration: 12
+      duration: 12,
+      topRated: true
   };
 
   it('should raises the deleted event when clicked', () => {
     const component = new CourseItemComponent();
-    const courseEl: CourseItem = {id: 1, title: 'one', description: 'one', dateObj: 'Feb 25, 2018', duration: 12 };
+    const courseEl: CourseItem = {id: 1, title: 'one', description: 'one', dateObj: 'Feb 25, 2018', duration: 12, topRated: true };
     component.courseItem = courseEl;
 
     component.onDelete.subscribe((selectedHero: CourseItem) => expect(selectedHero).toBe(courseEl));

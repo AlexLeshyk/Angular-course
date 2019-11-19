@@ -48,7 +48,7 @@ export class CoursePageComponent implements OnInit {
       title: 'Javascript language course',
       description: 'fggdfg dgfdfg gdfgd lorem',
       duration: 67,
-      dateObj: Date.parse("Nov 2, 2019"),
+      dateObj: Date.parse("Nov 11, 2019"),
       topRated: false
     },
     {
@@ -80,7 +80,7 @@ export class CoursePageComponent implements OnInit {
     console.log('OnInit CoursePage Component', this.counter);
   }
 
-  public onRootDelete(item: CourseItem): void {
+  public onItemDelete(item: CourseItem): void {
     this.courseItems = this.courseItems.filter((course: CourseItem) => course.id !== item.id);
     console.log(item.id);
   }
