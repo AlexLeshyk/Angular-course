@@ -1,13 +1,13 @@
-<div class="course-item">
+<div class="course-item" app-course-item-style [courseItem]=courseItem
+  [ngClass]="{'top-rated': courseItem.topRated }">
   <div class="course-item-info">
-    <h4>{{ courseItem.title }} #{{ courseItem.id }}</h4>
-    <span class="duration">{{ courseItem.duration }} min</span>
-    <span class="date">{{ courseItem.dateObj | date}}</span>
+    <h4>{{ courseItem.title | uppercase }} #{{ courseItem.id }}</h4>
+    <span class="duration">{{ courseItem.duration | duration }}</span>
+    <span class="date">{{ courseItem.dateObj | date:'d MMMM, y' }}</span>
     <p>{{ courseItem.description }}</p>
   </div>
   <div class="course-item-buttons">
     <button class="secondary-btn">Edit</button>
     <button class="secondary-btn delete-btn" (click)="delete()">Delete</button>
   </div>
-  <!-- <p>{{counter}}</p> -->
 </div>

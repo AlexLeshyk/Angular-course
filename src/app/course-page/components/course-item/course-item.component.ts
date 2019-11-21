@@ -12,7 +12,8 @@ export class CourseItemComponent implements OnInit, OnChanges {
   @Input() public counter: number;
   @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
-  constructor() { }
+  constructor() {
+  }
 
   public ngOnInit(): void {
     console.log('OnInit CourseItem Component');
