@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ItemCourseService {
 
-  public items: Array<CourseItem> = [
+  public items: CourseItem[] = [
     {
       id: 1,
       title: 'Video converting course',
@@ -57,9 +57,27 @@ export class ItemCourseService {
     }
   ]
 
+  public newCourseItem: CourseItem = {
+    id: 13,
+    title: "vsddssd",
+    description: "vsfvfvsfv",
+    duration: 0,
+    dateObj: Date.parse("Oct 31, 2019"),
+    topRated: true
+  }
+
   constructor() { }
 
   public getItems(): Observable<CourseItem[]> {
     return of(this.items);
+  }
+
+  public removeItem(item: CourseItem): void {
+    this.items = this.items.filter((course: CourseItem) => course.id !== item.id);
+    console.log(item.id);
+  }
+
+  public add(): void {
+    this.items.push(this.newCourseItem);
   }
 }

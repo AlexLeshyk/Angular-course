@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service'
 
@@ -7,7 +7,7 @@ import { ItemCourseService } from '../../services/item-course.service'
   templateUrl: './course-page.component.html',
   styleUrls: ['./course-page.component.scss']
 })
-export class CoursePageComponent implements OnInit {
+export class CoursePageComponent implements OnInit, OnDestroy {
 
   inputValue = 'course';
 
@@ -36,9 +36,16 @@ export class CoursePageComponent implements OnInit {
     this.getItems();
   }
 
+  ngOnDestroy() {
+  }
+
   public onItemDelete(item: CourseItem): void {
-    this.courseItems = this.courseItems.filter((course: CourseItem) => course.id !== item.id);
-    console.log(item.id);
+    this.itemCourseService.removeItem(item);
+    console.log(this.itemCourseService.items);
+  }
+
+  public onItemAdd() {
+    this.itemCourseService.add();
   }
 
   onValueChanged(value: string) {
