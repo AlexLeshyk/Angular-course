@@ -74,10 +74,20 @@ export class ItemCourseService {
 
   public removeItem(item: CourseItem): void {
     this.items = this.items.filter((course: CourseItem) => course.id !== item.id);
-    console.log(item.id);
+  }
+
+  deleteItem(item: CourseItem) {
+    const index: number = this.items.indexOf(item);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    }
   }
 
   public add(): void {
     this.items.push(this.newCourseItem);
+  }
+
+  clear() {
+    this.items = [];
   }
 }

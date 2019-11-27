@@ -16,11 +16,11 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public ngOnInit(): void {
-    console.log('OnInit CourseItem Component');
+    // console.log('OnInit CourseItem Component');
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log('OnChanges CourseItem Component', changes);
+    //console.log('OnChanges CourseItem Component', changes);
   }
 
   public delete(): void {

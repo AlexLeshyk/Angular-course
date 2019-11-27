@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-login-buttons',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-buttons.component.scss']
 })
 export class LoginButtonsComponent implements OnInit {
+
+  @Output() open = new EventEmitter<void>();
 
   constructor() { }
 

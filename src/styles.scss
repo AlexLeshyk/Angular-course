@@ -1,11 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+}
+html {
+  min-height: 100%;
+}
+
+body {
+  min-width: 900px;
+  background: #f2f3f7;
+}
+
+.wrapper {
+  display: flex;
+	flex-direction: column;
+	min-height: calc(100% - 120px);
+}
 
 .container {
   margin: 0 auto;
-  max-width: 1220px;
+  max-width: 1240px;
+}
+
+.content {
+  padding: 0 20px 20px;
+  flex: 1 0 auto;
+}
+
+.footer {
+  margin: 0 auto;
+  padding: 20px 0;
+  background: #646464;
+  height: 70px;
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 * {
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -57,4 +89,25 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.form-group + .form-group {
+  margin-top: 1rem;
+}
+
+input[type=text] {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 6px 10px;
+}
+
+.clear::before {
+    clear: both;
+    display: table;
+    content: " ";
+}
+.clear::after {
+    clear: both;
+    display: table;
+    content: " ";
 }
