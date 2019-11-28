@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private authorizationService: AuthorizationService) {}
 
   ngOnInit() {
   }

@@ -72,8 +72,9 @@ export class ItemCourseService {
     return of(this.items);
   }
 
-  public removeItem(item: CourseItem): void {
+  removeItem(item: CourseItem) {
     this.items = this.items.filter((course: CourseItem) => course.id !== item.id);
+    return this.getItems();
   }
 
   deleteItem(item: CourseItem) {
@@ -83,7 +84,7 @@ export class ItemCourseService {
     }
   }
 
-  public add(): void {
+  add(): void {
     this.items.push(this.newCourseItem);
   }
 

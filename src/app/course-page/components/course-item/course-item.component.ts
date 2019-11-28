@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
+import { ItemCourseService } from  '../../services/item-course.service';
+
 
 @Component({
   selector: 'app-course-item',
@@ -12,7 +14,9 @@ export class CourseItemComponent implements OnInit, OnChanges {
   @Input() public counter: number;
   @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
-  constructor() {
+  constructor(
+    private itemCourseService: ItemCourseService
+  ) {
   }
 
   public ngOnInit(): void {
@@ -23,7 +27,8 @@ export class CourseItemComponent implements OnInit, OnChanges {
     //console.log('OnChanges CourseItem Component', changes);
   }
 
-  public delete(): void {
+  public deleteCourseItem(): void {
+    // this.itemCourseService.removeItem(this.courseItem);
     this.onDelete.emit(this.courseItem);
   }
 

@@ -4,4 +4,9 @@
     <app-login-buttons (open)="open.emit()" *ngIf="isAuth"></app-login-buttons>
   </div>
   <div *ngFor="let user of usersEntity">{{ user.firstName }}</div>
+  <div class="card">
+    <h2>Counter: {{authorizationService.counter}}</h2>
+    <button type="button" class="btn" (click)="authorizationService.decrease()">-</button>
+    <button type="button" class="btn" (click)="authorizationService.increase()">+</button>
+  </div>
 </header>

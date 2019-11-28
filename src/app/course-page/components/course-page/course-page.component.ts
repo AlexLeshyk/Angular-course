@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnDestroy, ViewChild } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { Subscription } from 'rxjs';
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
+  @ViewChild(CourseItem, {static: true})
   inputValue = 'course';
 
   courseItems: CourseItem[];
@@ -33,8 +34,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   public onItemDelete(item): void {
     this.itemCourseService.deleteItem(item);
-    console.log(this.itemCourseService.items);
-    console.log(this.courseItems);
+    // console.log(this.itemCourseService.items);
+    // console.log(this.courseItems);
   }
 
   public onItemAdd() {

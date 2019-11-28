@@ -5,6 +5,16 @@ export class AuthorizationService {
 
   constructor() { }
 
+  counter = 0;
+
+  increase() {
+    this.counter++;
+  }
+
+  decrease() {
+    this.counter--;
+  }
+
   IsAuthenticated():void {
 
   }
