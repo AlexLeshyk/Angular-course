@@ -36,7 +36,7 @@ describe('CourseItemComponent', () => {
   it('should delete course by id with event emitter property', () => {
       let result = null;
       component.onDelete.subscribe(value => result = value.id);
-      component.delete();
+      component.deleteCourseItem();
       expect(result).toBe(component.courseItem.id);
   });
 

@@ -1,12 +1,10 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { UserEntity } from '../../models/user-entity.model';
-import { AuthorizationService } from '../../services/authorization.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  providers: [ AuthorizationService ]
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
@@ -27,7 +25,7 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  constructor(private authorizationService: AuthorizationService) {}
+  constructor() {}
 
   ngOnInit() {
   }

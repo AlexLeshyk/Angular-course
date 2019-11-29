@@ -74,7 +74,6 @@ export class ItemCourseService {
 
   removeItem(item: CourseItem) {
     this.items = this.items.filter((course: CourseItem) => course.id !== item.id);
-    return this.getItems();
   }
 
   deleteItem(item: CourseItem) {

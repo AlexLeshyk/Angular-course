@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
-import { ItemCourseService } from  '../../services/item-course.service';
+import { AuthorizationService } from  '../../services/authorization.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class CourseItemComponent implements OnInit, OnChanges {
   @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
   constructor(
-    private itemCourseService: ItemCourseService
+    private auth: AuthorizationService
   ) {
   }
 
@@ -28,8 +28,9 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public deleteCourseItem(): void {
-    // this.itemCourseService.removeItem(this.courseItem);
-    this.onDelete.emit(this.courseItem);
+    if (this.auth.getAutorizationValue()) {
+      this.onDelete.emit(this.courseItem);
+    }
   }
 
 }

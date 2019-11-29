@@ -1,30 +1,28 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthorizationService {
 
   constructor() { }
 
-  counter = 0;
-
-  increase() {
-    this.counter++;
-  }
-
-  decrease() {
-    this.counter--;
-  }
+  public isAutorized: boolean;
 
   IsAuthenticated():void {
 
   }
 
   login() {
-
+    this.isAutorized = true;
   }
 
   logout() {
+    this.isAutorized = false;
+  }
 
+  getAutorizationValue():boolean {
+    return this.isAutorized;
   }
 
   getUserInfo() {

@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
-  @ViewChild(CourseItem, {static: true})
-  inputValue = 'course';
+  @ViewChild(CourseItem, {static: false}) itemCourse: CourseItem;
+  public inputValue = 'course';
 
   courseItems: CourseItem[];
 
@@ -34,8 +34,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   public onItemDelete(item): void {
     this.itemCourseService.deleteItem(item);
-    // console.log(this.itemCourseService.items);
-    // console.log(this.courseItems);
+    console.log(this.itemCourseService.items);
+    console.log(this.courseItems);
   }
 
   public onItemAdd() {
