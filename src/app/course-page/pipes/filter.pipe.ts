@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  pure: false
 })
 export class FilterPipe implements PipeTransform {
 

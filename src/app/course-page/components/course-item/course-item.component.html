@@ -7,7 +7,7 @@
     <p>{{ courseItem.description }}</p>
   </div>
   <div class="course-item-buttons">
-    <button class="secondary-btn">Edit</button>
+    <button class="secondary-btn" (click)="updateCourseItem()">Edit</button>
     <button class="secondary-btn delete-btn" (click)="deleteCourseItem()">Delete</button>
   </div>
 </div>

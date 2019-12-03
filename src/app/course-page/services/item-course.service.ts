@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +59,7 @@ export class ItemCourseService {
   public newCourseItem: CourseItem = {
     id: 13,
     title: "vsddssd",
-    description: "vsfvfvsfv",
+    description: "text should be here",
     duration: 0,
     dateObj: Date.parse("Oct 31, 2019"),
     topRated: true
@@ -68,23 +67,42 @@ export class ItemCourseService {
 
   constructor() { }
 
-  public getItems(): Observable<CourseItem[]> {
-    return of(this.items);
+  // Get list
+  public getItems(): CourseItem[] {
+    return this.items;
+  }
+
+  // Get item by Id
+  getItemById(id: number) {
+    return this.items.filter((course: CourseItem) => course.id == id);
   }
 
   removeItem(item: CourseItem) {
     this.items = this.items.filter((course: CourseItem) => course.id !== item.id);
   }
 
+  // Update item
+  updateItem(item: CourseItem) {
+    item.title = item.title + ' updated';
+    item.description = item.description + ' updated';
+    item.topRated = !item.topRated;
+    return item;
+  }
+
+  // Remove item
   deleteItem(item: CourseItem) {
-    const index: number = this.items.indexOf(item);
-    if (index !== -1) {
+    let confirmation = prompt("Do you really want to delete this course? Yes/No", "");
+    let index: number = this.items.indexOf(item);
+    if (index !== -1 && confirmation.toLowerCase()=="yes") {
       this.items.splice(index, 1);
+    } else {
+      console.log("This course won't be deleted");
     }
   }
 
-  add(): void {
-    this.items.push(this.newCourseItem);
+  // Creat course
+  addItem(): void {
+    this.items.unshift(this.newCourseItem);
   }
 
   clear() {

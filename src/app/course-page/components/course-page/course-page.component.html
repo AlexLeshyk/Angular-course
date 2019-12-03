@@ -11,6 +11,7 @@
     *ngFor="let course of courseItems | sort:'dateObj' | filter:inputValue"
     [courseItem]="course"
     [counter]="counter"
-    (onDeleteItem)="onItemDelete($event)">
+    (onDeleteItem)="onItemDelete($event)"
+    (onEdit)="onItemUdpate($event)">
   </app-course-item>
 </div>

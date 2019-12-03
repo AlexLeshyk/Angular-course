@@ -9,10 +9,6 @@ export class AuthorizationService {
 
   public isAutorized: boolean;
 
-  IsAuthenticated():void {
-
-  }
-
   login() {
     this.isAutorized = true;
   }
@@ -21,6 +17,7 @@ export class AuthorizationService {
     this.isAutorized = false;
   }
 
+  // IsAuthenticated method (boolean)
   getAutorizationValue():boolean {
     return this.isAutorized;
   }

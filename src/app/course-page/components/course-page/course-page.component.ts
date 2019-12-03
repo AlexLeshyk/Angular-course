@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { Subscription } from 'rxjs';
@@ -10,8 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
-  @ViewChild(CourseItem, {static: false}) itemCourse: CourseItem;
-  public inputValue = 'course';
+  public inputValue = '';
 
   courseItems: CourseItem[];
 
@@ -32,15 +31,19 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   constructor(private itemCourseService: ItemCourseService) { }
 
-  public onItemDelete(item): void {
+  public onItemDelete(item: CourseItem): void {
     this.itemCourseService.deleteItem(item);
     console.log(this.itemCourseService.items);
     console.log(this.courseItems);
   }
 
   public onItemAdd() {
-    this.itemCourseService.add();
+    this.itemCourseService.addItem();
     this.isShowCourse = this.isShowCourse ? false : true;
+  }
+
+  public onItemUdpate(item: CourseItem) {
+    this.itemCourseService.updateItem(item);
   }
 
   onValueChanged(value: string) {
@@ -48,9 +51,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.itemsSub = this.itemCourseService.getItems().subscribe(items => {
-      this.courseItems = items;
-    })
+    this.courseItems = this.itemCourseService.getItems();
   }
 
   ngOnDestroy() {

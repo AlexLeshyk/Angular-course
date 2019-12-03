@@ -13,6 +13,7 @@ export class CourseItemComponent implements OnInit, OnChanges {
   @Input() public courseItem: CourseItem;
   @Input() public counter: number;
   @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
+  @Output() onEdit: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
   constructor(
     private auth: AuthorizationService
@@ -30,6 +31,12 @@ export class CourseItemComponent implements OnInit, OnChanges {
   public deleteCourseItem(): void {
     if (this.auth.getAutorizationValue()) {
       this.onDelete.emit(this.courseItem);
+    }
+  }
+
+  public updateCourseItem(): void {
+    if (this.auth.getAutorizationValue()) {
+      this.onEdit.emit(this.courseItem);
     }
   }
 
