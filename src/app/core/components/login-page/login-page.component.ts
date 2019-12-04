@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-login-page',
@@ -8,10 +8,23 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class LoginPageComponent implements OnInit {
 
   @Output() close = new EventEmitter<void>();
+  @Output() login = new EventEmitter<string>();
+  @Input() loginValue: string = '';
+  passwordValue: string = '111';
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  onLogin() {
+    if (this.loginValue.trim() && this.passwordValue.trim()) {
+      this.close.emit();
+    }
+  }
+
+  onChange(event) {
+    this.loginValue = event;
+    this.login.emit(event);
+  }
 }

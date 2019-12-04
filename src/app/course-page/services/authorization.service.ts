@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserEntity } from '../../core/models/user-entity.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class AuthorizationService {
     return this.isAutorized;
   }
 
-  getUserInfo() {
-
+  getUserInfo(value: string) {
+    console.log("login of user:", value);
+    return value;
   }
 }
