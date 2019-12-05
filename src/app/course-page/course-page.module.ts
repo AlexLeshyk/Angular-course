@@ -8,16 +8,18 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { SortPipe } from './pipes/sort.pipe';
+import { AddCoursePageComponent } from './components/add-course-page/add-course-page.component';
 
 @NgModule({
-  declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe],
+  declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe, AddCoursePageComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
   exports: [
     CoursePageComponent,
-    SearchControlComponent
+    SearchControlComponent,
+    AddCoursePageComponent
   ]
 })
 export class CoursePageModule { }

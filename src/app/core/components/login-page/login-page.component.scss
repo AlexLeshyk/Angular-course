@@ -1,12 +1,11 @@
 .popup-outer {
-    // display: none;
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .25);
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .25);
 }
 
 .modal {
@@ -34,7 +33,8 @@
     margin-bottom: 5px;
   }
 
-  input {
+  input,
+  textarea {
     width: 100%
   }
 
