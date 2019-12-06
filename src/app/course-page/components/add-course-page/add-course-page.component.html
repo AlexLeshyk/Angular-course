@@ -26,8 +26,8 @@
     id="course-date"
     name="courseDate"
     placeholder="Course date"
-    type="date"
-    [ngModel]="courseItem.dateObj |date:'yyyy-MM-dd'"
+    type="text"
+    [ngModel]="courseItem.dateObj | date:'d MMM, y'"
     (ngModelChange)="updatedate($event)"
     #courseDate="ngModel"
     />
