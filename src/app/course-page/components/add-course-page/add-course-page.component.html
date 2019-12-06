@@ -1,8 +1,10 @@
 <div class="edit-course-wrapper">
+  <h2>Course update page:</h2>
   <div class="form-group">
     <label for="course-title">Title:</label>
     <input
     id="course-title"
+    name="courseTitle"
     placeholder="Video course"
     type="text"
     [(ngModel)]="courseItem.title"
@@ -12,6 +14,7 @@
     <label for="course-info">Description:</label>
     <textarea
     id="course-info"
+    name="courseInfo"
     name="textarea" rows="8" cols="80"
     placeholder="Video course"
     [(ngModel)]="courseItem.description"
@@ -21,15 +24,19 @@
     <label for="course-date">Date:</label>
     <input
     id="course-date"
+    name="courseDate"
     placeholder="Course date"
-    type="text"
-    [(ngModel)]="courseItem.dateObj"
+    type="date"
+    [ngModel]="courseItem.dateObj |date:'yyyy-MM-dd'"
+    (ngModelChange)="updatedate($event)"
+    #courseDate="ngModel"
     />
   </div>
   <div class="form-group">
     <label for="course-duration">Duration:</label>
     <input
     id="course-duration"
+    name="courseDuration"
     placeholder="Course date"
     type="text"
     [(ngModel)]="courseItem.duration"
@@ -37,7 +44,7 @@
     <span>{{ courseItem.duration | duration }}</span>
   </div>
   <div class="form-group">
-    <button type="button" class="btn primary-btn" (click)="onSave()">Save</button>
+    <button type="button" class="btn primary-btn" (click)="onSave(courseItem)">Save</button>
     <button type="button" class="btn secondary-btn" (click)="onCancel()">Cancel</button>
   </div>
 </div>

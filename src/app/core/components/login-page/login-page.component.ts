@@ -1,10 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
 

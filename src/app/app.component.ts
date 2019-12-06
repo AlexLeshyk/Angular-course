@@ -48,4 +48,9 @@ export class AppComponent {
     this.editCoursePage = false;
     this.isAuth = true;
   }
+
+  saveEditCourse(): void {
+    this.editCoursePage = false;
+    this.isAuth = true;
+  }
 }

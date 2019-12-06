@@ -31,8 +31,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   public onItemDelete(item: CourseItem): void {
     this.itemCourseService.deleteItem(item);
-    console.log(this.itemCourseService.items);
-    console.log(this.courseItems);
   }
 
   public onItemAdd() {
@@ -41,8 +39,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemUdpate(item: CourseItem) {
-    this.itemCourseService.updateItem(item);
-    this.itemCourseService.getItemById(item.id);
     this.onEditCoursePage.emit(item);
   }
 
