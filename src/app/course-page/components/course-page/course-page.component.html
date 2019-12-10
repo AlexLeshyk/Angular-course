@@ -6,12 +6,11 @@
   <div class="add-course-wrapper">
     <button (click)="onItemAdd()" class="btn secondary-btn">Add course</button>
   </div>
-  <div *ngIf="isShowCourse" class="no-date-info">No data.Fell free to add new course</div>
+  <div *ngIf="isShowCourse" class="no-date-info">No data.Feel free to add new course</div>
   <app-course-item
     *ngFor="let course of courseItems | sort:'dateObj' | filter:inputValue"
     [courseItem]="course"
     [counter]="counter"
-    (onDeleteItem)="onItemDelete($event)"
-    (onEdit)="onItemUdpate($event)">
+    (onDeleteItem)="onItemDelete($event)">
   </app-course-item>
 </div>

@@ -14,7 +14,6 @@ export class AppComponent {
 
   isAuth = true;
   modal = false;
-  editCoursePage = false;
   courseItem: CourseItem;
 
   constructor(
@@ -36,21 +35,5 @@ export class AppComponent {
   openLoginPopup($event): void {
     this.modal = true;
     this.isAuth = false;
-  }
-
-  editCourse(course: CourseItem ): void {
-    this.editCoursePage = true;
-    this.isAuth = false;
-    this.courseItem = course;
-  }
-
-  cancelEditCourse(): void {
-    this.editCoursePage = false;
-    this.isAuth = true;
-  }
-
-  saveEditCourse(): void {
-    this.editCoursePage = false;
-    this.isAuth = true;
   }
 }

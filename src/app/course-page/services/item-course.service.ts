@@ -74,7 +74,7 @@ export class ItemCourseService {
 
   // Get item by Id
   getItemById(id: number) {
-    return this.items.filter((course: CourseItem) => course.id == id);
+    return this.items.find((course: CourseItem) => course.id === id);
   }
 
   removeItem(item: CourseItem) {
@@ -83,8 +83,8 @@ export class ItemCourseService {
 
   // Update item
   updateItem(item: CourseItem) {
-    item.title = item.title + ' updated';
-    item.topRated = !item.topRated;
+    // item.title = item.title + ' updated';
+    // item.topRated = !item.topRated;
     return item;
   }
 
@@ -100,8 +100,8 @@ export class ItemCourseService {
   }
 
   // Creat course
-  addItem(): void {
-    this.items.unshift(this.newCourseItem);
+  addItem(item: CourseItem): void {
+    this.items.unshift(item);
   }
 
   clear() {

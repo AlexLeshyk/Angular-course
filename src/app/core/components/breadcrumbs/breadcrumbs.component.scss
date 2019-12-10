@@ -6,4 +6,8 @@ li {
   a {
     font-weight: 600;
   }
+
+  &.active {
+    a {color: #30b6dd;}
+  }
 }

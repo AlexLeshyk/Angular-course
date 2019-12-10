@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { AuthorizationService } from  '../../services/authorization.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-item',
@@ -13,10 +13,10 @@ export class CourseItemComponent implements OnInit, OnChanges {
   @Input() public courseItem: CourseItem;
   @Input() public counter: number;
   @Output('onDeleteItem') onDelete: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
-  @Output() onEdit: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
   constructor(
-    private auth: AuthorizationService
+    private auth: AuthorizationService,
+    private router: Router
   ) {
   }
 
@@ -36,7 +36,8 @@ export class CourseItemComponent implements OnInit, OnChanges {
 
   public updateCourseItem(): void {
     if (this.auth.getAutorizationValue()) {
-      this.onEdit.emit(this.courseItem);
+      // this.router.navigate(['/courses/new']);
+      this.router.navigate(['/courses', this.courseItem.id]);
     }
   }
 
