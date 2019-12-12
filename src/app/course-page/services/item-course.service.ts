@@ -83,8 +83,6 @@ export class ItemCourseService {
 
   // Update item
   updateItem(item: CourseItem) {
-    // item.title = item.title + ' updated';
-    // item.topRated = !item.topRated;
     return item;
   }
 
@@ -101,7 +99,7 @@ export class ItemCourseService {
 
   // Creat course
   addItem(item: CourseItem): void {
-    this.items.unshift(item);
+    this.items.push(item);
   }
 
   clear() {

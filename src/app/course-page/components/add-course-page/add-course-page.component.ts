@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCoursePageComponent implements OnInit {
-
+  public storageProperty: CourseItem;
+  public isNewCourse: boolean;
   @Input() public courseItem: CourseItem;
   @Input() public isSave: boolean;
 
@@ -23,12 +24,36 @@ export class AddCoursePageComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe( (params: Params) => {
-      this.courseItem = this.itemCourseService.getItemById(+params.id);
-      console.log(this.courseItem);
+      this.isNewCourse = !params.id;
+      if (!this.isNewCourse) {
+        this.courseItem = this.itemCourseService.getItemById(+params.id);
+
+      } else {
+        this.courseItem = {
+          title: '',
+          duration: 0,
+          id: 999,
+          dateObj: Date.now(),
+          description: '',
+          topRated: false
+        }
+      }
+      this.storageProperty = {
+        title: this.courseItem.title,
+        duration: this.courseItem.duration,
+        dateObj: this.courseItem.dateObj,
+        description: this.courseItem.description,
+        id: this.courseItem.id,
+        topRated: this.courseItem.topRated
+      }
     })
   }
 
   onCancel() {
+    this.courseItem.title = this.storageProperty.title;
+    this.courseItem.duration = this.storageProperty.duration;
+    this.courseItem.dateObj = this.storageProperty.dateObj;
+    this.courseItem.description = this.storageProperty.description;
     this.router.navigate(['/courses']);
   }
 
@@ -37,8 +62,10 @@ export class AddCoursePageComponent implements OnInit {
     this.router.navigate(['/courses']);
   }
 
-  onSaveAdd(item: CourseItem) {
-    this.itemCourseService.addItem(item);
+  onSaveAdd() {
+    if (this.isNewCourse) {
+      this.itemCourseService.addItem(this.courseItem);
+    }
     this.router.navigate(['/courses']);
   }
 

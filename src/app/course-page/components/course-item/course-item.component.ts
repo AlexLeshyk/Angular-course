@@ -36,7 +36,6 @@ export class CourseItemComponent implements OnInit, OnChanges {
 
   public updateCourseItem(): void {
     if (this.auth.getAutorizationValue()) {
-      // this.router.navigate(['/courses/new']);
       this.router.navigate(['/courses', this.courseItem.id]);
     }
   }
