@@ -1,0 +1,28 @@
+<div class="popup-outer"></div>
+
+<div class="modal">
+  <h2>Login</h2>
+  <div class="form-group">
+    <label for="">Email:</label>
+    <input
+    placeholder="Enter e-mail"
+    type="text"
+    required
+    [ngModel]="loginValue"
+    (ngModelChange)="onChange($event)"
+    />
+  </div>
+  <div class="form-group">
+    <label for="">Password:</label>
+    <input
+    placeholder="Enter password"
+    type="password"
+    required
+    [(ngModel)]="passwordValue"
+    />
+  </div>
+  <div class="form-group clear">
+    <a href="#">Forgot password?</a>
+    <button type="button" class="btn secondary-btn" (click)="onLogin()">Login</button>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { UserEntity } from '../../models/user-entity.model';
 
 @Component({
@@ -7,6 +7,9 @@ import { UserEntity } from '../../models/user-entity.model';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @Output() open = new EventEmitter<void>();
+  @Input() isAuth = true;
 
   public content: string = 'content here';
   public usersEntity: Array<UserEntity> = [
@@ -22,7 +25,7 @@ export class HeaderComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

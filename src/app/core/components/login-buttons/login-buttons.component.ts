@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AuthorizationService } from '../../../course-page/services/authorization.service';
 
 @Component({
   selector: 'app-login-buttons',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginButtonsComponent implements OnInit {
 
-  constructor() { }
+  @Output() open = new EventEmitter<void>();
+
+  constructor(
+    private auth: AuthorizationService
+  ) { }
 
   ngOnInit() {
+  }
+
+  clickLogin(): void {
+    this.open.emit();
+    this.auth.login();
   }
 
 }
