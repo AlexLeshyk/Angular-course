@@ -1,0 +1,33 @@
+.edit-course-wrapper {
+  padding: 20px 0;
+  width: 600px;
+
+  h2 {
+    margin: 0 0 30px;
+  }
+}
+
+.form-group {
+  .btn {
+    float: none;
+  }
+
+  .btn + .btn {
+    margin-left: 20px;
+  }
+
+  input {
+    width: 50%;
+
+    & + span {
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
+
+  &:first-of-type {
+    input {
+      width: 100%;
+    }
+  }
+}

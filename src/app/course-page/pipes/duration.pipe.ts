@@ -9,7 +9,7 @@ export class DurationPipe implements PipeTransform {
     if(num >= 0 && num/60 < 1) {
       return num + ' min';
     } else {
-      return Math.round(num/60) + ' h ' + (num%60) +' min';
+      return Math.floor(num/60) + ' h ' + (num%60) +' min';
     }
   }
 }

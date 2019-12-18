@@ -7,6 +7,7 @@ html {
 }
 
 body {
+  font-family: 'SourceSansPro', sans-serif;
   min-width: 900px;
   background: #f2f3f7;
 }
@@ -42,39 +43,36 @@ body {
   box-sizing: border-box;
 }
 
-.primary-btn {
-  height: 48px;
-  padding: 0 20px;
-  margin: 0;
-  font-family: 'SourceSansPro', sans-serif;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.5rem;
-  letter-spacing: -0.13px;
-  color: #fff;
-  cursor: pointer;
-  background-color: #9bc837;
-  border: none;
-  border-radius: 3px;
-}
-
-.secondary-btn {
+.btn {
   padding: 3px 12px;
   font-family: 'SourceSansPro', sans-serif;
   font-size: 12px;
+  font-style: normal;
   font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  transition: all 0.4s ease-out;
+}
+
+.primary-btn {
+  line-height: 1.5rem;
+  letter-spacing: -0.13px;
+  color: #fff;
+  background-color: #9bc837;
+  &:hover {
+    background-color: #30b6dd;
+  }
+}
+
+.secondary-btn {
   line-height: 1.83;
   letter-spacing: -0.09px;
   color: #fff;
-  cursor: pointer;
   background-color: #30b6dd;
-  border: none;
-  border-radius: 3px;
-}
-
-body {
-  font-family: 'SourceSansPro', sans-serif;
+  &:hover {
+    background-color: #9bc837;
+  }
 }
 
 ul {
@@ -92,15 +90,47 @@ a {
   }
 }
 
+.form-group {
+  label {
+    font-weight: bold;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  input,
+  textarea {
+    width: 100%
+  }
+
+  .btn {
+    float: right;
+  }
+
+  a {
+    font-size: 12px;
+    color: #30b6dd;
+    margin-left: 10px;
+    text-decoration: underline;
+  }
+}
+
 .form-group + .form-group {
   margin-top: 1rem;
 }
 
 input[type=text],
-input[type="password"] {
+input[type="password"],
+input[type="date"],
+textarea {
   border: 1px solid #ccc;
   border-radius: 2px;
   padding: 6px 10px;
+}
+
+textarea  {
+  resize: none;
+  height: 100px;
 }
 
 .clear::before {

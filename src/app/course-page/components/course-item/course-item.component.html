@@ -3,11 +3,11 @@
   <div class="course-item-info">
     <h4>{{ courseItem.title | uppercase }} #{{ courseItem.id }}</h4>
     <span class="duration">{{ courseItem.duration | duration }}</span>
-    <span class="date">{{ courseItem.dateObj | date:'d MMMM, y' }}</span>
+    <span class="date">{{ courseItem.dateObj | date:'d MMM, y' }}</span>
     <p>{{ courseItem.description }}</p>
   </div>
   <div class="course-item-buttons">
-    <button class="secondary-btn" (click)="updateCourseItem()">Edit</button>
-    <button class="secondary-btn delete-btn" (click)="deleteCourseItem()">Delete</button>
+    <button class="btn secondary-btn" (click)="updateCourseItem()">Edit</button>
+    <button class="btn secondary-btn delete-btn" (click)="deleteCourseItem()">Delete</button>
   </div>
 </div>

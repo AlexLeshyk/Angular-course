@@ -12,7 +12,16 @@
     <app-breadcrumbs *ngIf="isAuth"></app-breadcrumbs>
 
     <!-- content -->
-    <app-course-page *ngIf="isAuth"></app-course-page>
+    <app-course-page
+    *ngIf="isAuth"
+    (onEditCoursePage)="editCourse($event)"
+    ></app-course-page>
+    <app-add-course-page
+    [courseItem]="courseItem"
+    *ngIf="editCoursePage"
+    (onCancelEdit)="cancelEditCourse($event)"
+    (onSaveEdit)="saveEditCourse($event)"
+    ></app-add-course-page>
   </div>
   <!-- footer -->
   <div class="footer">

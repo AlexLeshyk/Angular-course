@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
 
 @Injectable({
@@ -84,7 +84,6 @@ export class ItemCourseService {
   // Update item
   updateItem(item: CourseItem) {
     item.title = item.title + ' updated';
-    item.description = item.description + ' updated';
     item.topRated = !item.topRated;
     return item;
   }

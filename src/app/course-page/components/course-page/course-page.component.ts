@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { Subscription } from 'rxjs';
@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-course-page',
   templateUrl: './course-page.component.html',
-  styleUrls: ['./course-page.component.scss']
+  styleUrls: ['./course-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
@@ -18,10 +19,9 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   public isShowCourse: boolean = false;
 
   itemsSub: Subscription;
+  @Output() onEditCoursePage: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    // console.log('OnChanges CoursePage Component', changes);
-  }
+  constructor(private itemCourseService: ItemCourseService) { }
 
   public change(): void {
     this.counter = this.counter + 1;
@@ -29,12 +29,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     // this.isShowCourse = this.isShowCourse ? false : true;
   }
 
-  constructor(private itemCourseService: ItemCourseService) { }
-
   public onItemDelete(item: CourseItem): void {
     this.itemCourseService.deleteItem(item);
-    console.log(this.itemCourseService.items);
-    console.log(this.courseItems);
   }
 
   public onItemAdd() {
@@ -43,11 +39,15 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemUdpate(item: CourseItem) {
-    this.itemCourseService.updateItem(item);
+    this.onEditCoursePage.emit(item);
   }
 
   onValueChanged(value: string) {
     this.inputValue = value;
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    // console.log('OnChanges CoursePage Component', changes);
   }
 
   ngOnInit() {
