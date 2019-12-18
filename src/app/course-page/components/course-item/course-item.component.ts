@@ -29,15 +29,11 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public deleteCourseItem(): void {
-    if (this.auth.getAutorizationValue()) {
-      this.onDelete.emit(this.courseItem);
-    }
+    this.onDelete.emit(this.courseItem);
   }
 
   public updateCourseItem(): void {
-    if (this.auth.getAutorizationValue()) {
-      this.router.navigate(['/courses', this.courseItem.id]);
-    }
+    this.router.navigate(['/courses', this.courseItem.id]);
   }
 
 }

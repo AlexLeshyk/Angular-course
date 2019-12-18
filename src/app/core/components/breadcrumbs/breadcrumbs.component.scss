@@ -3,11 +3,19 @@
 }
 
 li {
+  display: inline-block;
+  vertical-align: middle;
+
   a {
     font-weight: 600;
+    padding: 5px;
   }
 
   &.active {
     a {color: #30b6dd;}
+  }
+
+  & + li {
+    margin-left: 10px;
   }
 }

@@ -26,7 +26,10 @@ export class AddCoursePageComponent implements OnInit {
     this.route.params.subscribe( (params: Params) => {
       this.isNewCourse = !params.id;
       if (!this.isNewCourse) {
-        this.courseItem = this.itemCourseService.getItemById(+params.id);
+        // this.courseItem = this.itemCourseService.getItemById(+params.id);
+        this.route.data.subscribe( data => {
+          this.courseItem = data.course
+        })
 
       } else {
         this.courseItem = {

@@ -37,7 +37,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemAdd() {
-    // this.itemCourseService.addItem();
     this.router.navigate(['/courses/new']);
     this.isShowCourse = this.isShowCourse ? false : true;
   }

@@ -1,12 +1,6 @@
 <!-- header -->
 <app-header (open)="openLoginPopup($event)" [isAuth]="isAuth"></app-header>
 <!-- login-page component -->
-<app-login-page
-  *ngIf="modal"
-  (close)="closeLoginPopup($event)"
-  (login)="getLogin($event)"
-  [loginValue]="inputLoginValue"
-></app-login-page>
 <div class="wrapper">
   <div class="container content">
     <app-breadcrumbs *ngIf="isAuth"></app-breadcrumbs>

@@ -10,10 +10,7 @@ import { CourseItem } from './course-page/models/course-item.model';
 export class AppComponent {
   public title = 'angular-course';
 
-  inputLoginValue: string = "login";
-
   isAuth = true;
-  modal = false;
   courseItem: CourseItem;
 
   constructor(
@@ -21,19 +18,7 @@ export class AppComponent {
   ) {
   }
 
-  closeLoginPopup(): void {
-    this.modal = false;
-    this.isAuth = true;
-    console.log("successfuly log in");
-    this.auth.getUserInfo(this.inputLoginValue);
-  }
-
-  getLogin(value: string) {
-    this.inputLoginValue = value;
-  }
-
   openLoginPopup($event): void {
-    this.modal = true;
-    this.isAuth = false;
+    // this.isAuth = false;
   }
 }
