@@ -16,6 +16,12 @@ li {
   }
 
   & + li {
-    margin-left: 10px;
+    margin-left: 7px;
+
+    &:before {
+      content: '/';
+      margin-right: 7px;
+      display: inline-block;
+    }
   }
 }

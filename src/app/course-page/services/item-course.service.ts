@@ -5,7 +5,7 @@ import { CourseItem } from '../models/course-item.model';
   providedIn: 'root'
 })
 export class ItemCourseService {
-
+  public currentId: number;
   public items: CourseItem[] = [
     {
       id: 1,
@@ -56,15 +56,6 @@ export class ItemCourseService {
     }
   ]
 
-  public newCourseItem: CourseItem = {
-    id: 13,
-    title: "vsddssd",
-    description: "text should be here",
-    duration: 0,
-    dateObj: Date.parse("Oct 31, 2019"),
-    topRated: true
-  }
-
   constructor() { }
 
   // Get list
@@ -102,6 +93,14 @@ export class ItemCourseService {
     this.items.push(item);
   }
 
+  rememberId(id: number): void {
+    this.currentId = id;
+  }
+
+  getCurrentId(): number {
+    return this.currentId;
+  }
+  
   clear() {
     this.items = [];
   }

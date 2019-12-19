@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { AuthorizationService } from  '../../services/authorization.service';
+import { ItemCourseService } from '../../services/item-course.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +17,8 @@ export class CourseItemComponent implements OnInit, OnChanges {
 
   constructor(
     private auth: AuthorizationService,
-    private router: Router
+    private router: Router,
+    private itemService: ItemCourseService
   ) {
   }
 
@@ -33,6 +35,9 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public updateCourseItem(): void {
+    if (this.auth.getAutorizationValue()) {
+      this.itemService.rememberId(this.courseItem.id);
+    }
     this.router.navigate(['/courses', this.courseItem.id]);
   }
 

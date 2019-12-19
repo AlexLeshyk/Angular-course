@@ -57,12 +57,16 @@ export class AddCoursePageComponent implements OnInit {
     this.courseItem.duration = this.storageProperty.duration;
     this.courseItem.dateObj = this.storageProperty.dateObj;
     this.courseItem.description = this.storageProperty.description;
+    this.courseItem.id = this.storageProperty.id;
+    this.courseItem.topRated = this.storageProperty.topRated;
     this.router.navigate(['/courses']);
+    this.itemCourseService.currentId = undefined;
   }
 
   onSaveEdit(item: CourseItem) {
     this.itemCourseService.updateItem(item);
     this.router.navigate(['/courses']);
+    this.itemCourseService.currentId = undefined;
   }
 
   onSaveAdd() {
