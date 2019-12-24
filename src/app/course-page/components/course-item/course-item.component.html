@@ -1,9 +1,9 @@
 <div class="course-item" app-course-item-style [courseItem]=courseItem
   [ngClass]="{'top-rated': courseItem.topRated }">
   <div class="course-item-info">
-    <h4>{{ courseItem.title | uppercase }} #{{ courseItem.id }}</h4>
-    <span class="duration">{{ courseItem.duration | duration }}</span>
-    <span class="date">{{ courseItem.dateObj | date:'d MMM, y' }}</span>
+    <h4>{{ courseItem.name | uppercase }} #{{ courseItem.id }}</h4>
+    <span class="duration">{{ courseItem.length | duration }}</span>
+    <span class="date">{{ courseItem.date | date:'d MMM, y' }}</span>
     <p>{{ courseItem.description }}</p>
   </div>
   <div class="course-item-buttons">

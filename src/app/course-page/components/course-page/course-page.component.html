@@ -8,9 +8,18 @@
   </div>
   <div *ngIf="isShowCourse" class="no-date-info">No data.Feel free to add new course</div>
   <app-course-item
-    *ngFor="let course of courseItems | sort:'dateObj' | filter:inputValue"
+    *ngFor="let course of courseItems | sort:'date' | filter:inputValue"
     [courseItem]="course"
     [counter]="counter"
     (onDeleteItem)="onItemDelete($event)">
   </app-course-item>
+  <div class="pagination">
+    <ul>
+      <li class="pagination-item prev"><a class="btn secondary-btn pagination-link" href="#"><</a></li>
+      <li class="pagination-item"><a class="btn secondary-btn pagination-link" href="#">1</a></li>
+      <li class="pagination-item"><a class="btn secondary-btn pagination-link" href="#">2</a></li>
+      <li class="pagination-item"><a class="btn secondary-btn pagination-link" href="#">3</a></li>
+      <li class="pagination-item next"><a class="btn secondary-btn pagination-link" href="#">></a></li>
+    </ul>
+  </div>
 </div>

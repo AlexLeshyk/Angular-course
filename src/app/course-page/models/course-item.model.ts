@@ -1,19 +1,19 @@
 interface ICourseItem {
   id: number;
-  title: string;
+  name: string;
   description: string;
   createDate?: object;
-  duration: number
+  length: number
   topRated: boolean
 }
 
 export class CourseItem implements ICourseItem {
   constructor(
     public id: number,
-    public title: string,
+    public name: string,
     public description: string,
-    public duration: number,
-    public dateObj: any,
+    public length: number,
+    public date: any,
     public topRated: boolean
   ) {
   }

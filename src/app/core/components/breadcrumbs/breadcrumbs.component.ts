@@ -28,6 +28,7 @@ export class BreadcrumbsComponent implements OnInit {
 
   updateId(): void {
     this.currentId = this.itemService.getCurrentId();
+    console.log('currentId', this.currentId)
     this.courseItem = this.itemService.getItemById(this.currentId);
   }
 

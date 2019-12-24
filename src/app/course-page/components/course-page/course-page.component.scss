@@ -20,3 +20,20 @@
   text-transform: uppercase;
   max-width: 500px;
 }
+
+
+.pagination {
+  padding: 30px 0 15px;
+}
+
+.pagination-item {
+  display: inline-block;
+  margin: 0 5px;
+  vertical-align: middle;
+}
+
+.course-wrapper .pagination-link {
+  text-decoration: none;
+  color: #fff;
+  padding: 5px 10px;
+}

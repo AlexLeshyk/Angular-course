@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-course-page',
   templateUrl: './course-page.component.html',
   styleUrls: ['./course-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
@@ -32,8 +32,12 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     // this.isShowCourse = this.isShowCourse ? false : true;
   }
 
-  public onItemDelete(item: CourseItem): void {
-    this.itemCourseService.deleteItem(item);
+  public onItemDelete(item: CourseItem) {
+    // this.itemCourseService.deleteItem(item);
+    this.itemCourseService.removeItem(item)
+    .subscribe( () => {
+      this.courseItems = this.courseItems.filter( t => t.id !==  item.id);
+    })
   }
 
   public onItemAdd() {
@@ -50,7 +54,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.courseItems = this.itemCourseService.getItems();
+    // this.courseItems = this.itemCourseService.getItems();
+    this.itemCourseService.getItems().subscribe(items => {
+      this.courseItems = items;
+    })
   }
 
   ngOnDestroy() {
