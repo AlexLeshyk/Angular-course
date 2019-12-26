@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CourseItem } from '../../../course-page/models/course-item.model';
 import { ItemCourseService } from '../../../course-page/services/item-course.service';
 import { Router, NavigationEnd} from '@angular/router';
@@ -28,8 +28,11 @@ export class BreadcrumbsComponent implements OnInit {
 
   updateId(): void {
     this.currentId = this.itemService.getCurrentId();
-    console.log('currentId', this.currentId)
-    this.courseItem = this.itemService.getItemById(this.currentId);
+    if (this.currentId !== undefined) {
+      this.itemService.getItemById(this.currentId).subscribe( item => {
+        this.courseItem = item;
+      })
+    }
   }
 
 }

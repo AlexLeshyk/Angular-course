@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable({
@@ -15,7 +15,11 @@ export class ItemCourseService {
 
   // Get list
   getItems(): Observable<CourseItem[]> {
-    return this.http.get<CourseItem[]>('http://localhost:3004/courses').pipe(delay(500));
+    let params = new HttpParams();
+    params.append('start', '0');
+    params.append('count', '10');
+
+    return this.http.get<CourseItem[]>('http://localhost:3004/courses?start=10&count=3', {params: params});
   }
 
   // Get item by Id

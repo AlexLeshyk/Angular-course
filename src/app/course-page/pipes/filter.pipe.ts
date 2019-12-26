@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
     }
 
     return courseItems.filter( course => {
-      return course.title.toLowerCase().includes(search.toLowerCase())
+      return course.name.toLowerCase().includes(search.toLowerCase())
     })
   }
 

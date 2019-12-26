@@ -16,7 +16,7 @@ export class AddCoursePageComponent implements OnInit {
   @Input() public courseItem: CourseItem;
   @Input() public isSave: boolean;
 
-  courseItems = [];
+  courseItems: CourseItem[];
 
   constructor(
     private itemCourseService: ItemCourseService,
@@ -66,9 +66,8 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   onSaveEdit(item: CourseItem) {
-    this.itemCourseService.getItemById(item.id);
     this.itemCourseService.updateItem(item).subscribe( item => {
-      this.courseItems.find(t => t.id === item.id);
+      this.courseItem.id = item.id;
     })
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;

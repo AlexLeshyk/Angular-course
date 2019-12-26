@@ -49,15 +49,19 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     this.inputValue = value;
   }
 
+  fetchItems() {
+    this.itemCourseService.getItems().subscribe(items => {
+      this.courseItems = items;
+    })
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     // console.log('OnChanges CoursePage Component', changes);
   }
 
   ngOnInit() {
     // this.courseItems = this.itemCourseService.getItems();
-    this.itemCourseService.getItems().subscribe(items => {
-      this.courseItems = items;
-    })
+    this.fetchItems();
   }
 
   ngOnDestroy() {
