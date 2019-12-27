@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { SubscriptionLike } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-course-page.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCoursePageComponent implements OnInit {
+export class AddCoursePageComponent implements OnInit, OnDestroy {
   public storageProperty: CourseItem;
   public isNewCourse: boolean;
   @Input() public courseItem: CourseItem;
   @Input() public isSave: boolean;
 
   courseItems: CourseItem[];
+  subscriptions: SubscriptionLike[] = [];
 
   constructor(
     private itemCourseService: ItemCourseService,
@@ -25,7 +27,7 @@ export class AddCoursePageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe( (params: Params) => {
+    this.subscriptions.push( this.route.params.subscribe( (params: Params) => {
       this.isNewCourse = !params.id;
       if (!this.isNewCourse) {
         // this.courseItem = this.itemCourseService.getItemById(params.id);
@@ -51,7 +53,13 @@ export class AddCoursePageComponent implements OnInit {
         id: this.courseItem.id,
         topRated: this.courseItem.topRated
       }
-    })
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      (subscription) => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 
   onCancel() {
@@ -66,18 +74,18 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   onSaveEdit(item: CourseItem) {
-    this.itemCourseService.updateItem(item).subscribe( item => {
+    this.subscriptions.push(this.itemCourseService.updateItem(item).subscribe( item => {
       this.courseItem.id = item.id;
-    })
+    }));
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
   }
 
   onSaveAdd() {
     if (this.isNewCourse) {
-      this.itemCourseService.addItem(this.courseItem).subscribe( item => {
+      this.subscriptions.push(this.itemCourseService.addItem(this.courseItem).subscribe( item => {
         this.courseItems.push(item);
-      })
+      }));
     }
     this.router.navigate(['/courses']);
   }

@@ -11,7 +11,14 @@ import { Router, NavigationEnd} from '@angular/router';
 export class BreadcrumbsComponent implements OnInit {
   currentId: number;
 
-  courseItem : CourseItem;
+  courseItem : CourseItem = {
+    name: '',
+    length: 0,
+    id: 999,
+    date: Date.now(),
+    description: '',
+    topRated: false
+  }
 
   constructor(
     private itemService: ItemCourseService,

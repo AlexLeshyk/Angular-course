@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import {catchError, map} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +11,30 @@ export class ItemCourseService {
   public currentId: number;
   public items: CourseItem[] = [];
 
+  public start = '0';
+  public count = '5';
+
   constructor(private http: HttpClient) { }
 
   // Get list
   getItems(): Observable<CourseItem[]> {
     let params = new HttpParams();
-    params.append('start', '0');
-    params.append('count', '10');
-
-    return this.http.get<CourseItem[]>('http://localhost:3004/courses?start=10&count=3', {params: params});
+    params = params.append('start', this.start);
+    params = params.append('count', this.count);
+    return this.http.get<CourseItem[]>('http://localhost:3004/courses', {
+      params,
+      observe: 'response'
+    })
+    .pipe(
+      map(response => {
+        console.log('Response', response)
+        return response.body
+      }),
+      catchError(error => {
+        console.log('Error: ', error.message)
+        return throwError(error)
+      })
+    )
   }
 
   // Get item by Id

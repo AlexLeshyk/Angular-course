@@ -1,7 +1,7 @@
 import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
-import { Subscription } from 'rxjs';
+import { SubscriptionLike } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,12 +14,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   public inputValue = '';
 
-  courseItems: CourseItem[];
+  courseItems: CourseItem[] = [];
 
   public counter: number = 0;
-  public isShowCourse: boolean = false;
-
-  itemsSub: Subscription;
+  subscriptions: SubscriptionLike[] = [];
 
   constructor(
     private itemCourseService: ItemCourseService,
@@ -29,20 +27,19 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   public change(): void {
     this.counter = this.counter + 1;
     console.log(this.counter);
-    // this.isShowCourse = this.isShowCourse ? false : true;
   }
 
   public onItemDelete(item: CourseItem) {
     // this.itemCourseService.deleteItem(item);
-    this.itemCourseService.removeItem(item)
+    this.subscriptions.push(this.itemCourseService.removeItem(item)
     .subscribe( () => {
       this.courseItems = this.courseItems.filter( t => t.id !==  item.id);
-    })
+    }));
+    this.fetchItems();
   }
 
   public onItemAdd() {
     this.router.navigate(['/courses/new']);
-    this.isShowCourse = this.isShowCourse ? false : true;
   }
 
   onValueChanged(value: string) {
@@ -50,24 +47,31 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   fetchItems() {
-    this.itemCourseService.getItems().subscribe(items => {
+    this.subscriptions.push(this.itemCourseService.getItems().subscribe(items => {
       this.courseItems = items;
-    })
+    }));
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     // console.log('OnChanges CoursePage Component', changes);
   }
 
-  ngOnInit() {
-    // this.courseItems = this.itemCourseService.getItems();
+  onGetRequest() {
+    this.itemCourseService.start = '';
+    this.itemCourseService.count = '';
     this.fetchItems();
   }
 
+  ngOnInit() {
+    // this.courseItems = this.itemCourseService.getItems();
+    this.fetchItems();
+
+  }
+
   ngOnDestroy() {
-    if (this.itemsSub) {
-      this.itemsSub.unsubscribe();
-    }
+    this.subscriptions.forEach(
+      (subscription) => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 
 }
