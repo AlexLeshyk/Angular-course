@@ -14,11 +14,22 @@ export class AuthorizationService {
   private isAutorized: boolean;
 
   login(user: UserEntity): Observable<any> {
-    this.isAutorized = true;
     return this.http.get('http://localhost:3004/users').pipe(
       map(response => {
-        console.log('Response!!!', response)
-        return response
+        if (response) {
+          for (let key in response) {
+            if( (response[key].login === user.login) && (response[key].password === user.password)) {
+              user.id = response[key].id;
+              user.first = response[key].name.first;
+              user.last = response[key].name.last;
+              this.isAutorized = true;
+              sessionStorage.setItem('token', response[key].fakeToken);
+              console.log("successfuly log in", response[key].fakeToken);
+            } else {
+              sessionStorage.clear();
+            }
+          }
+        }
       })
     )
   }
@@ -44,5 +55,9 @@ export class AuthorizationService {
   getUserInfo(value: string) {
     console.log("login of user:", value);
     return value;
+  }
+
+  getUserById(id: number) {
+    return this.http.get<UserEntity>(`http://localhost:3004/users/${id}`);
   }
 }

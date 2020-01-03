@@ -11,7 +11,8 @@ export class UserEntity implements IUserEntityItem {
     public login: string,
     public password: string,
     public first?: string,
-    public last?: string
+    public last?: string,
+    public id?: number
   ) {
   }
 }

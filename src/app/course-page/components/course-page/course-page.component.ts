@@ -4,7 +4,7 @@ import { ItemCourseService } from '../../services/item-course.service';
 import { ShowParamsService } from '../../services/show-params.service';
 import { AuthorizationService } from  '../../services/authorization.service';
 import { SubscriptionLike } from 'rxjs';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

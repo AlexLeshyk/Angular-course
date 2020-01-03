@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthorizationService } from  './course-page/services/authorization.service';
 import { CourseItem } from './course-page/models/course-item.model';
 
 @Component({
@@ -13,9 +12,7 @@ export class AppComponent {
   isAuth = true;
   courseItem: CourseItem;
 
-  constructor(
-    private auth: AuthorizationService
-  ) {
+  constructor() {
   }
 
   openLoginPopup($event): void {

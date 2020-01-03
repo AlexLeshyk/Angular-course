@@ -53,17 +53,6 @@ export class ItemCourseService {
     return this.http.put<CourseItem>(`http://localhost:3004/courses/${item.id}`, item);
   }
 
-  // Delete item old
-  deleteItem(item: CourseItem) {
-    let confirmation = prompt("Do you really want to delete this course? Yes/No", "");
-    let index: number = this.items.indexOf(item);
-    if (index !== -1 && confirmation.toLowerCase()=="yes") {
-      this.items.splice(index, 1);
-    } else {
-      console.log("This course won't be deleted");
-    }
-  }
-
   // Add course item
   addItem(item: CourseItem): Observable<CourseItem> {
     return this.http.post<CourseItem>('http://localhost:3004/courses', item);
