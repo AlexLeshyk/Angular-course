@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { UserEntity } from '../../core/models/user-entity.model';
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private isAutorized: boolean;
 
-  login() {
+  login(user: UserEntity): Observable<any> {
     this.isAutorized = true;
+    return this.http.get('http://localhost:3004/users').pipe(
+      map(response => {
+        console.log('Response!!!', response)
+        return response
+      })
+    )
   }
 
   logout() {

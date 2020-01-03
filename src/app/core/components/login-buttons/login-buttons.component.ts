@@ -22,11 +22,12 @@ export class LoginButtonsComponent implements OnInit {
   login(): void {
     this.open.emit();
     this.router.navigate(['/login']);
-    this.auth.login();
+
   }
 
   logout(): void {
     this.auth.logout();
+    this.router.navigate(['/courses']);
     console.log('User logout');
   }
 

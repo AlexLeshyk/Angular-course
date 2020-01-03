@@ -12,18 +12,18 @@ export class HeaderComponent implements OnInit {
   @Input() isAuth = true;
 
   public content: string = 'content here';
-  public usersEntity: Array<UserEntity> = [
-    {
-      id: 1,
-      firstName: 'Alex',
-      lastName: 'Werby',
-    },
-    {
-      id: 2,
-      firstName: 'Aliaksandr',
-      lastName: 'Jastine',
-    }
-  ]
+  // public usersEntity: Array<UserEntity> = [
+  //   {
+  //     id: 1,
+  //     first: 'Alex',
+  //     last: 'Werby',
+  //   },
+  //   {
+  //     id: 2,
+  //     first: 'Aliaksandr',
+  //     last: 'Jastine',
+  //   }
+  // ]
 
   constructor() {}
 

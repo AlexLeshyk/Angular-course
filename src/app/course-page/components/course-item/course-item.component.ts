@@ -32,7 +32,14 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public deleteCourseItem(): void {
-    this.onDelete.emit(this.courseItem);
+    if (this.auth.getAutorizationValue()) {
+      let confirmation = prompt("Do you really want to delete this course? Yes/No", "");
+      if (confirmation.toLowerCase() === "yes") {
+        this.onDelete.emit(this.courseItem);
+      } else {
+        console.log("This course won't be deleted", confirmation);
+      }
+    }
   }
 
   public updateCourseItem(): void {

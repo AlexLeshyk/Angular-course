@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizationService } from  '../../../course-page/services/authorization.service';
+import { UserEntity } from '../../models/user-entity.model';
 
 @Component({
   selector: 'app-login-page',
@@ -23,14 +24,20 @@ export class LoginPageComponent implements OnInit {
 
   onLogin() {
     if (this.loginValue.trim() && this.passwordValue.trim()) {
-      this.router.navigate(['/courses'], {
-        queryParams : {
-          auth: true
-        }
-      })
-      this.auth.getUserInfo(this.loginValue);
-      // this.isAuth = this.auth.getAutorizationValue();
-      console.log("successfuly log in", this.auth.getAutorizationValue());
+      const user: UserEntity = {
+        login: this.loginValue,
+        password: this.passwordValue
+      }
+      this.auth.login(user).subscribe(() => {
+        this.auth.getUserInfo(this.loginValue);
+        // this.isAuth = this.auth.getAutorizationValue();
+        console.log("successfuly log in");
+        this.router.navigate(['/courses'], {
+          queryParams : {
+            auth: true
+          }
+        })
+      });
     }
   }
 

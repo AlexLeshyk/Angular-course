@@ -1,6 +1,7 @@
 <div class="course-wrapper">
   <app-search-control
     (onValueChanged)="onValueChanged($event)"
+    (onSearchClick)="onSearch($event)"
     [inputValue]="inputValue">
   </app-search-control>
   <div class="add-course-wrapper">
@@ -8,7 +9,7 @@
   </div>
   <div *ngIf="courseItems.length; else noItems">
     <app-course-item
-      *ngFor="let course of courseItems | sort:'date' | filter:inputValue"
+      *ngFor="let course of courseItems | sort:'date'"
       [courseItem]="course"
       [counter]="counter"
       (onDeleteItem)="onItemDelete($event)">
@@ -17,13 +18,20 @@
   <ng-template #noItems>
     <p class="no-date-info">No data.Feel free to add new course</p>
   </ng-template>
-  <div class="pagination">
+  <div class="pagination" *ngIf="auth.getAutorizationValue()">
     <ul>
-      <li class="pagination-item prev"><a class="btn secondary-btn pagination-link" href="#"><</a></li>
-      <li class="pagination-item"><a class="btn secondary-btn pagination-link" href="#">1</a></li>
-      <li class="pagination-item"><a class="btn secondary-btn pagination-link" (click)="onGetRequest()">2</a></li>
-      <li class="pagination-item"><a class="btn secondary-btn pagination-link" href="#">3</a></li>
-      <li class="pagination-item next"><a class="btn secondary-btn pagination-link" href="#">></a></li>
+      <li class="pagination-item">
+        <a class="btn secondary-btn pagination-link" (click)="onShowFirstRow()">1</a>
+      </li>
+      <li class="pagination-item">
+        <a class="btn secondary-btn pagination-link" (click)="onShowSecondRow()">2</a>
+      </li>
+      <li class="pagination-item">
+        <a class="btn secondary-btn pagination-link" (click)="onShowThirdRow()">3</a>
+      </li>
+      <li class="pagination-item next">
+        <a class="btn secondary-btn pagination-link" (click)="onShowAllItems()">Load more</a>
+      </li>
     </ul>
   </div>
 </div>

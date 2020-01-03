@@ -9,13 +9,15 @@ export class SearchControlComponent implements OnInit {
 
   @Input() inputValue: string;
   @Output() onValueChanged = new EventEmitter<string>();
+  @Output() onSearchClick = new EventEmitter<void>();
 
   constructor() {}
 
   ngOnInit() {}
 
   public onClick(): void {
-    console.log('значение из Input - ', this.inputValue);
+    // console.log('значение из Input - ', this.inputValue);
+    this.onSearchClick.emit();
   }
 
   onChange(event){

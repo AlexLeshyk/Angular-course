@@ -4,7 +4,7 @@ import {tap} from 'rxjs/operators'
 
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Intercept request', req.params);
+    // console.log('Intercept request', req.params);
 
     const cloned = req.clone({
       headers: req.headers.append('Auth', 'Some token for authorization')
@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(cloned).pipe(
       tap(event => {
         if (event.type === HttpEventType.Response) {
-          console.log('Interceptor response', event)
+          // console.log('Interceptor response', event)
         }
       })
     )

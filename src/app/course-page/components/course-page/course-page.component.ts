@@ -1,8 +1,11 @@
 import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
+import { ShowParamsService } from '../../services/show-params.service';
+import { AuthorizationService } from  '../../services/authorization.service';
 import { SubscriptionLike } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-course-page',
@@ -21,7 +24,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private itemCourseService: ItemCourseService,
-    private router: Router
+    private showParamsService: ShowParamsService,
+    private router: Router,
+    private http: HttpClient,
+    private auth: AuthorizationService
   ) { }
 
   public change(): void {
@@ -52,20 +58,46 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    // console.log('OnChanges CoursePage Component', changes);
+  onSearch() {
+    this.router.navigate(['/courses'],{
+      queryParams : {
+        textFragment: this.inputValue
+      }
+    });
+
+    this.subscriptions.push(this.http.get<CourseItem[]>(`http://localhost:3004/courses?textFragment=${this.inputValue}`)
+      .subscribe(items => {
+        this.courseItems = items;
+    }));
   }
 
-  onGetRequest() {
-    this.itemCourseService.start = '';
-    this.itemCourseService.count = '';
+  onShowSecondRow() {
+    this.showParamsService.showSecondRowItems();
     this.fetchItems();
+  }
+
+  onShowThirdRow() {
+    this.showParamsService.showThirdRowItems();
+    this.fetchItems();
+  }
+
+  onShowFirstRow() {
+    this.showParamsService.showFirstRowItems();
+    this.fetchItems();
+  }
+
+  onShowAllItems() {
+    this.showParamsService.showAllItems();
+    this.fetchItems();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    // console.log('OnChanges CoursePage Component', changes);
   }
 
   ngOnInit() {
     // this.courseItems = this.itemCourseService.getItems();
     this.fetchItems();
-
   }
 
   ngOnDestroy() {

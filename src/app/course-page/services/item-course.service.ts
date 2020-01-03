@@ -27,7 +27,7 @@ export class ItemCourseService {
     })
     .pipe(
       map(response => {
-        console.log('Response', response)
+        // console.log('Response', response)
         return response.body
       }),
       catchError(error => {
