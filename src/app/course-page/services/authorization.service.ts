@@ -8,7 +8,7 @@ export class AuthorizationService {
 
   constructor() { }
 
-  public isAutorized: boolean;
+  private isAutorized: boolean;
 
   login() {
     this.isAutorized = true;
@@ -18,9 +18,18 @@ export class AuthorizationService {
     this.isAutorized = false;
   }
 
-  // IsAuthenticated method (boolean)
+  // get isAutorized value
   getAutorizationValue():boolean {
     return this.isAutorized;
+  }
+
+  // IsAuthenticated method
+  IsAuthenticated(): Promise<boolean> {
+    return new Promise ( resolve => {
+      setTimeout(() => {
+        resolve(this.isAutorized)
+      }, 800);
+    })
   }
 
   getUserInfo(value: string) {

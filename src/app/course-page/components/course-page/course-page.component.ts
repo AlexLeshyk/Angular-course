@@ -1,7 +1,8 @@
-import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-page',
@@ -19,9 +20,11 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   public isShowCourse: boolean = false;
 
   itemsSub: Subscription;
-  @Output() onEditCoursePage: EventEmitter<CourseItem> = new EventEmitter<CourseItem>();
 
-  constructor(private itemCourseService: ItemCourseService) { }
+  constructor(
+    private itemCourseService: ItemCourseService,
+    private router: Router
+  ) { }
 
   public change(): void {
     this.counter = this.counter + 1;
@@ -34,12 +37,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemAdd() {
-    this.itemCourseService.addItem();
+    this.router.navigate(['/courses/new']);
     this.isShowCourse = this.isShowCourse ? false : true;
-  }
-
-  public onItemUdpate(item: CourseItem) {
-    this.onEditCoursePage.emit(item);
   }
 
   onValueChanged(value: string) {

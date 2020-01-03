@@ -9,12 +9,14 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { SortPipe } from './pipes/sort.pipe';
 import { AddCoursePageComponent } from './components/add-course-page/add-course-page.component';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe, AddCoursePageComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   exports: [
     CoursePageComponent,

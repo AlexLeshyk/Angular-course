@@ -5,7 +5,7 @@ import { CourseItem } from '../models/course-item.model';
   providedIn: 'root'
 })
 export class ItemCourseService {
-
+  public currentId: number;
   public items: CourseItem[] = [
     {
       id: 1,
@@ -56,15 +56,6 @@ export class ItemCourseService {
     }
   ]
 
-  public newCourseItem: CourseItem = {
-    id: 13,
-    title: "vsddssd",
-    description: "text should be here",
-    duration: 0,
-    dateObj: Date.parse("Oct 31, 2019"),
-    topRated: true
-  }
-
   constructor() { }
 
   // Get list
@@ -74,7 +65,7 @@ export class ItemCourseService {
 
   // Get item by Id
   getItemById(id: number) {
-    return this.items.filter((course: CourseItem) => course.id == id);
+    return this.items.find((course: CourseItem) => course.id === id);
   }
 
   removeItem(item: CourseItem) {
@@ -83,8 +74,6 @@ export class ItemCourseService {
 
   // Update item
   updateItem(item: CourseItem) {
-    item.title = item.title + ' updated';
-    item.topRated = !item.topRated;
     return item;
   }
 
@@ -100,10 +89,18 @@ export class ItemCourseService {
   }
 
   // Creat course
-  addItem(): void {
-    this.items.unshift(this.newCourseItem);
+  addItem(item: CourseItem): void {
+    this.items.push(item);
   }
 
+  rememberId(id: number): void {
+    this.currentId = id;
+  }
+
+  getCurrentId(): number {
+    return this.currentId;
+  }
+  
   clear() {
     this.items = [];
   }

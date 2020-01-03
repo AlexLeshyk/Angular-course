@@ -7,12 +7,15 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
 import { FormsModule } from '@angular/forms';
 import { LoginButtonsComponent } from './components/login-buttons/login-buttons.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { AppRoutingModule } from '../app-routing.module';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, LogoComponent, BreadcrumbsComponent, LoginButtonsComponent, LoginPageComponent, LoginPageComponent],
+  declarations: [HeaderComponent, FooterComponent, LogoComponent, BreadcrumbsComponent, LoginButtonsComponent, LoginPageComponent, LoginPageComponent, NotFoundComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   exports: [
     HeaderComponent,
