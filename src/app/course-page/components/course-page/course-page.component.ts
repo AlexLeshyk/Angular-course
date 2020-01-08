@@ -4,7 +4,7 @@ import { ItemCourseService } from '../../services/item-course.service';
 import { ShowParamsService } from '../../services/show-params.service';
 import { AuthorizationService } from  '../../services/authorization.service';
 import { SubscriptionLike } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -16,7 +16,8 @@ import { HttpClient } from '@angular/common/http';
 export class CoursePageComponent implements OnInit, OnDestroy {
 
   public inputValue = '';
-
+  message: string;
+  error: '';
   courseItems: CourseItem[] = [];
 
   public counter: number = 0;
@@ -26,6 +27,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     private itemCourseService: ItemCourseService,
     private showParamsService: ShowParamsService,
     private router: Router,
+    private route: ActivatedRoute,
     private http: HttpClient,
     private auth: AuthorizationService
   ) { }
@@ -55,7 +57,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   fetchItems() {
     this.subscriptions.push(this.itemCourseService.getItems().subscribe(items => {
       this.courseItems = items;
-    }));
+    }, error =>{
+      this.error = error.message;
+    }
+  ));
   }
 
   onSearch() {
@@ -96,6 +101,11 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe( (params: Params) => {
+      if(params['loginAgain']) {
+        this.message = "Please, login before";
+      }
+    });
     // this.courseItems = this.itemCourseService.getItems();
     this.fetchItems();
   }

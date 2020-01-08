@@ -1,4 +1,7 @@
 <div class="course-wrapper">
+  <div class="alert-info" *ngIf="message">
+    {{ message }}
+  </div>
   <app-search-control
     (onValueChanged)="onValueChanged($event)"
     (onSearchClick)="onSearch($event)"
@@ -7,31 +10,34 @@
   <div class="add-course-wrapper">
     <button (click)="onItemAdd()" class="btn secondary-btn">Add course</button>
   </div>
-  <div *ngIf="courseItems.length; else noItems">
-    <app-course-item
-      *ngFor="let course of courseItems | sort:'date'"
-      [courseItem]="course"
-      [counter]="counter"
-      (onDeleteItem)="onItemDelete($event)">
-    </app-course-item>
-  </div>
-  <ng-template #noItems>
-    <p class="no-date-info">No data.Feel free to add new course</p>
+  <p class="error" *ngIf="error; else itemsBlock">{{ error }}</p>
+  <ng-template #itemsBlock>
+    <div *ngIf="courseItems.length; else noItems">
+      <app-course-item
+        *ngFor="let course of courseItems | sort:'date'"
+        [courseItem]="course"
+        [counter]="counter"
+        (onDeleteItem)="onItemDelete($event)">
+      </app-course-item>
+    </div>
+    <ng-template #noItems>
+      <p class="no-date-info">No data.Feel free to add new course</p>
+    </ng-template>
+    <div class="pagination" *ngIf="auth.getAutorizationValue()">
+      <ul>
+        <li class="pagination-item">
+          <a class="btn secondary-btn pagination-link" (click)="onShowFirstRow()">1</a>
+        </li>
+        <li class="pagination-item">
+          <a class="btn secondary-btn pagination-link" (click)="onShowSecondRow()">2</a>
+        </li>
+        <li class="pagination-item">
+          <a class="btn secondary-btn pagination-link" (click)="onShowThirdRow()">3</a>
+        </li>
+        <li class="pagination-item next">
+          <a class="btn secondary-btn pagination-link" (click)="onShowAllItems()">Load more</a>
+        </li>
+      </ul>
+    </div>
   </ng-template>
-  <div class="pagination" *ngIf="auth.getAutorizationValue()">
-    <ul>
-      <li class="pagination-item">
-        <a class="btn secondary-btn pagination-link" (click)="onShowFirstRow()">1</a>
-      </li>
-      <li class="pagination-item">
-        <a class="btn secondary-btn pagination-link" (click)="onShowSecondRow()">2</a>
-      </li>
-      <li class="pagination-item">
-        <a class="btn secondary-btn pagination-link" (click)="onShowThirdRow()">3</a>
-      </li>
-      <li class="pagination-item next">
-        <a class="btn secondary-btn pagination-link" (click)="onShowAllItems()">Load more</a>
-      </li>
-    </ul>
-  </div>
 </div>
