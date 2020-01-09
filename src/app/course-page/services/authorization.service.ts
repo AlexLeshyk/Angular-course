@@ -12,6 +12,7 @@ export class AuthorizationService {
   constructor(private http: HttpClient) { }
 
   private isAutorized: boolean;
+  public token: string;
 
   login(user: UserEntity): Observable<any> {
     return this.http.get('http://localhost:3004/users').pipe(
@@ -22,6 +23,7 @@ export class AuthorizationService {
               user.id = response[key].id;
               user.first = response[key].name.first;
               user.last = response[key].name.last;
+              this.token = response[key].fakeToken;
               this.isAutorized = true;
               sessionStorage.setItem('token', response[key].fakeToken);
               console.log("successfuly log in", response[key].fakeToken);

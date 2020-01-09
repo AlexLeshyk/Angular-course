@@ -102,8 +102,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
-      if(params['loginAgain']) {
+      if (params['loginAgain']) {
         this.message = "Please, login before";
+      } else if (params['authFailed']){
+        this.message = "Session is overed. Please enter your data again";
       }
     });
     // this.courseItems = this.itemCourseService.getItems();
