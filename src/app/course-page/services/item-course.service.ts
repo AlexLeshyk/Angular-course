@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import {catchError, map} from 'rxjs/operators'
+import { Observable, throwError, of } from 'rxjs';
+import {catchError, map, debounceTime, tap, filter, distinctUntilChanged } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +56,19 @@ export class ItemCourseService {
   // Add course item
   addItem(item: CourseItem): Observable<CourseItem> {
     return this.http.post<CourseItem>('http://localhost:3004/courses', item);
+  }
+
+  // Search method
+  onSearchItems(inputValue: string): Observable<CourseItem[]> {
+    if (inputValue === '') {
+      return of([]);
+    }
+    return this.http.get<CourseItem[]>(`http://localhost:3004/courses?textFragment=${inputValue}`).pipe(
+      filter(res => res.length > 2),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      tap(val => console.log('val',val))
+    )
   }
 
   rememberId(id: number): void {

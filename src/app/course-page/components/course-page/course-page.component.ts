@@ -52,6 +52,11 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   onValueChanged(value: string) {
     this.inputValue = value;
+
+    this.subscriptions.push(this.itemCourseService.onSearchItems(this.inputValue)
+      .subscribe(items => {
+        this.courseItems = items;
+    }));
   }
 
   fetchItems() {
@@ -70,10 +75,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscriptions.push(this.http.get<CourseItem[]>(`http://localhost:3004/courses?textFragment=${this.inputValue}`)
-      .subscribe(items => {
-        this.courseItems = items;
-    }));
+    // this.subscriptions.push(this.itemCourseService.onSearchItems(this.inputValue)
+    //   .subscribe(items => {
+    //     this.courseItems = items;
+    // }));
   }
 
   onShowSecondRow() {
