@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-add-course-page',
   templateUrl: './add-course-page.component.html',
   styleUrls: ['./add-course-page.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCoursePageComponent implements OnInit, OnDestroy {
   public storageProperty: CourseItem;

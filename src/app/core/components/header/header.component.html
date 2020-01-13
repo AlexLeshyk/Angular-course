@@ -2,5 +2,9 @@
   <div class="container">
     <app-logo></app-logo>
     <app-login-buttons (open)="open.emit()" *ngIf="isAuth"></app-login-buttons>
+    <div *ngIf="auth.getAutorizationValue()">
+      <span>{{ user.name.first }}</span>
+      <span>{{ user.name.last }}</span>
+    </div>
   </div>
 </header>

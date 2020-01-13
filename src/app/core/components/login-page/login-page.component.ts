@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthorizationService } from  '../../../course-page/services/authorization.service';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { UserEntity } from '../../models/user-entity.model';
-import { SubscriptionLike } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit {
   loginValue: string = 'mail@yahoo.com';
   passwordValue: string = '111';
   isAuth: boolean = false;
-  subscriptions: SubscriptionLike[] = [];
+  aSub: Subscription;
 
   constructor(
     private router: Router,
@@ -25,9 +25,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(
-      (subscription) => subscription.unsubscribe());
-    this.subscriptions = [];
+    if (this.aSub) {
+      this.aSub.unsubscribe();
+    }
   }
 
   onLogin() {
@@ -36,18 +36,19 @@ export class LoginPageComponent implements OnInit {
         login: this.loginValue,
         password: this.passwordValue
       }
-      this.subscriptions.push(this.auth.login(user).subscribe(() => {
+      this.aSub = this.auth.login(user).subscribe(() => {
         if ( this.auth.getAutorizationValue()) {
-          this.subscriptions.push(this.auth.getUserById(user.id).subscribe(() => {
+          this.auth.getUserById(user.id).subscribe(() => {
             console.log('user FirstName:',user.first,'user LastName:',user.last,'user Login:', user.login);
-          }));
+          });
+          this.auth.rememberId(user.id);
         }
         this.router.navigate(['/courses'], {
           queryParams : {
             auth: true
           }
         });
-      }));
+      });
     }
   }
 

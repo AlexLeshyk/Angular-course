@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthorizationService } from '../../../course-page/services/authorization.service';
+import { AuthorizationService } from '../../../shared/services/authorization.service';
 import { Router } from '@angular/router';
 
 @Component({

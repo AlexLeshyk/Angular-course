@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import {catchError, map, debounceTime, tap, filter, distinctUntilChanged } from 'rxjs/operators'
+import {catchError, map, debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +64,6 @@ export class ItemCourseService {
       return of([]);
     }
     return this.http.get<CourseItem[]>(`http://localhost:3004/courses?textFragment=${inputValue}`).pipe(
-      filter(res => res.length > 2),
       debounceTime(1000),
       distinctUntilChanged(),
       tap(val => console.log('val',val))

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
-import { AuthorizationService } from  '../../services/authorization.service';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { ItemCourseService } from '../../services/item-course.service';
 import { Router } from '@angular/router';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseItem } from '../../../course-page/models/course-item.model';
 import { ItemCourseService } from '../../../course-page/services/item-course.service';
 import { Router, NavigationEnd} from '@angular/router';
-import { AuthorizationService } from  '../../../course-page/services/authorization.service';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
 
 @Component({
   selector: 'app-breadcrumbs',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { AuthorizationService } from  '../course-page/services/authorization.service';
+import { AuthorizationService } from  './services/authorization.service';
 import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 

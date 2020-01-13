@@ -13,6 +13,7 @@ export class AuthorizationService {
 
   private isAutorized: boolean;
   public token: string;
+  public currentId: number;
 
   login(user: UserEntity): Observable<any> {
     return this.http.get('http://localhost:3004/users').pipe(
@@ -61,5 +62,13 @@ export class AuthorizationService {
 
   getUserById(id: number) {
     return this.http.get<UserEntity>(`http://localhost:3004/users/${id}`);
+  }
+
+  rememberId(id: number): void {
+    this.currentId = id;
+  }
+
+  getCurrentId(): number {
+    return this.currentId;
   }
 }
