@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { Subscription } from 'rxjs';
-import { Router, NavigationEnd} from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { UserEntity } from '../../models/user-entity.model';
 
 @Component({
@@ -44,7 +44,6 @@ export class HeaderComponent implements OnInit {
     if (this.currentId !== undefined) {
       this.auth.getUserById(this.currentId).subscribe( item => {
         this.user = item;
-        console.log('-----------', this.user);
       })
     }
   }

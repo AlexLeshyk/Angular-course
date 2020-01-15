@@ -27,7 +27,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subscriptions.push( this.route.params.subscribe( (params: Params) => {
+    this.route.params.subscribe( (params: Params) => {
       this.isNewCourse = !params.id;
       if (!this.isNewCourse) {
         // this.courseItem = this.itemCourseService.getItemById(params.id);
@@ -53,7 +53,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
         id: this.courseItem.id,
         topRated: this.courseItem.topRated
       }
-    }));
+    });
   }
 
   ngOnDestroy() {

@@ -9,9 +9,10 @@ import { LoginButtonsComponent } from './components/login-buttons/login-buttons.
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, LogoComponent, BreadcrumbsComponent, LoginButtonsComponent, LoginPageComponent, LoginPageComponent, NotFoundComponent],
+  declarations: [HeaderComponent, FooterComponent, LogoComponent, BreadcrumbsComponent, LoginButtonsComponent, LoginPageComponent, LoginPageComponent, NotFoundComponent, LoadingComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -21,7 +22,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     HeaderComponent,
     FooterComponent,
     LoginPageComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    LoadingComponent
   ]
 })
 export class CoreModule { }
