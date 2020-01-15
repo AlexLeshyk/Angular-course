@@ -42,12 +42,18 @@ export class LoginPageComponent implements OnInit {
             console.log('user FirstName:',user.first,'user LastName:',user.last,'user Login:', user.login);
           });
           this.auth.rememberId(user.id);
+          this.router.navigate(['/courses'], {
+            queryParams : {
+              auth: true
+            }
+          });
+        } else {
+          this.router.navigate(['/courses'], {
+            queryParams : {
+              loginAgain: true
+            }
+          })
         }
-        this.router.navigate(['/courses'], {
-          queryParams : {
-            auth: true
-          }
-        });
       });
     }
   }

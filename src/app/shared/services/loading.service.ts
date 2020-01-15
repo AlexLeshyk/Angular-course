@@ -9,11 +9,14 @@ export class LoadingService {
 
   constructor() { }
 
-  isShown() {
+  loadingBlock() {
     this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 
-  isHidden() {
-    this.isLoading = false;
+  loadingValue():boolean {
+    return this.isLoading;
   }
 }

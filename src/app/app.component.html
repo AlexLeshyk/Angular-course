@@ -2,7 +2,7 @@
 <app-header (open)="openLoginPopup($event)" [isAuth]="isAuth"></app-header>
 <!-- login-page component -->
 <div class="wrapper">
-  <app-loading *ngIf="isLoading; else mainBlock"></app-loading>
+  <app-loading *ngIf="loadingValue; else mainBlock"></app-loading>
   <ng-template #mainBlock>
     <div class="container content">
       <app-breadcrumbs *ngIf="isAuth"></app-breadcrumbs>

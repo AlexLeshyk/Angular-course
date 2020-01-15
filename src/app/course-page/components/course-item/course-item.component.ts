@@ -50,7 +50,7 @@ export class CourseItemComponent implements OnInit, OnChanges {
     // }
 
     this.itemService.rememberId(this.courseItem.id);
-    this.loadService.isShown();
+    this.loadService.loadingBlock();
     this.router.navigate(['/courses', this.courseItem.id]);
   }
 
