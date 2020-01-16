@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container">
     <app-logo></app-logo>
-    <app-login-buttons (open)="open.emit()" *ngIf="isAuth"></app-login-buttons>
+    <app-login-buttons (open)="openPopup($event)" *ngIf="isAuth"></app-login-buttons>
     <div *ngIf="auth.getAutorizationValue()" class="user-info">
       <span>User info:</span>
       <span *ngIf="user">{{ user.name.first }}</span>

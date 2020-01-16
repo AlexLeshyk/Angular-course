@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { Subscription } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
@@ -11,8 +11,7 @@ import { UserEntity } from '../../models/user-entity.model';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() open = new EventEmitter<void>();
-  @Input() isAuth = true;
+  isAuth = true;
   aSub: Subscription;
   user : UserEntity;
   // user : UserEntity = {
@@ -46,6 +45,10 @@ export class HeaderComponent implements OnInit {
         this.user = item;
       })
     }
+  }
+
+  openPopup() {
+    // this.isAuth = false;
   }
 
 }

@@ -13,7 +13,7 @@ export class LoginPageComponent implements OnInit {
 
   loginValue: string = 'mail@yahoo.com';
   passwordValue: string = '111';
-  isAuth: boolean = false;
+  isAuth: boolean;
   aSub: Subscription;
 
   constructor(
@@ -28,6 +28,10 @@ export class LoginPageComponent implements OnInit {
     if (this.aSub) {
       this.aSub.unsubscribe();
     }
+  }
+
+  onClose() {
+    this.router.navigate(['/courses']);
   }
 
   onLogin() {

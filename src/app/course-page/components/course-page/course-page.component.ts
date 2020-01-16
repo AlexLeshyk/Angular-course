@@ -3,6 +3,7 @@ import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { ShowParamsService } from '../../services/show-params.service';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
+import { LoadingService }  from '../../../shared/services/loading.service';
 import { SubscriptionLike, Subject } from 'rxjs';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -29,7 +30,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     private showParamsService: ShowParamsService,
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthorizationService
+    private auth: AuthorizationService,
+    private loadService: LoadingService
   ) { }
 
   public change(): void {
@@ -47,6 +49,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemAdd() {
+    this.loadService.loadingBlock();
     this.router.navigate(['/courses/new']);
   }
 

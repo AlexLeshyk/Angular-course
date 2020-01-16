@@ -9,16 +9,11 @@ import { LoadingService } from './shared/services/loading.service';
 export class AppComponent implements DoCheck {
   public title = 'angular-course';
 
-  isAuth = true;
   loadingValue: boolean;
 
   constructor(
     private loadService: LoadingService
   ) {
-  }
-
-  openLoginPopup($event): void {
-    // this.isAuth = false;
   }
 
   ngDoCheck() {

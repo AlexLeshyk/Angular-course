@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
+import { LoadingService }  from '../../../shared/services/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SubscriptionLike } from 'rxjs';
 import { Router } from '@angular/router';
@@ -23,7 +24,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   constructor(
     private itemCourseService: ItemCourseService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loadService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     }));
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
+    this.loadService.loadingBlock();
   }
 
   onSaveAdd() {
@@ -88,6 +91,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       }));
     }
     this.router.navigate(['/courses']);
+    this.loadService.loadingBlock();
   }
 
   updatedate(event) {

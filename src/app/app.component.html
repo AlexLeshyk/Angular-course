@@ -1,11 +1,11 @@
 <!-- header -->
-<app-header (open)="openLoginPopup($event)" [isAuth]="isAuth"></app-header>
+<app-header></app-header>
 <!-- login-page component -->
 <div class="wrapper">
   <app-loading *ngIf="loadingValue; else mainBlock"></app-loading>
   <ng-template #mainBlock>
     <div class="container content">
-      <app-breadcrumbs *ngIf="isAuth"></app-breadcrumbs>
+      <app-breadcrumbs></app-breadcrumbs>
 
       <!-- content -->
       <router-outlet></router-outlet>
