@@ -10,25 +10,23 @@ export class ShowParamsService {
     private itemCourseService: ItemCourseService
   ) { }
 
-  showSecondRowItems() {
-    this.itemCourseService.start = '5';
-    this.itemCourseService.count = '5';
-  }
+  // showSecondRowItems() {
+  //   this.itemCourseService.start = '5';
+  //   this.itemCourseService.count = '5';
+  // }
+  //
+  // showThirdRowItems() {
+  //   this.itemCourseService.start = '10';
+  //   this.itemCourseService.count = '5';
+  // }
+  //
+  // showFirstRowItems() {
+  //   this.itemCourseService.start = '0';
+  //   this.itemCourseService.count = '5';
+  // }
 
-  showThirdRowItems() {
-    this.itemCourseService.start = '10';
-    this.itemCourseService.count = '5';
-  }
-
-  showFirstRowItems() {
-    this.itemCourseService.start = '0';
-    this.itemCourseService.count = '5';
-  }
-
-  showAllItems() {
-    // this.itemCourseService.count = '';
-    this.itemCourseService.start = '';
-    this.itemCourseService.count = String(parseInt(this.itemCourseService.count) + 5);
-    console.log('Nastia',this.itemCourseService.count);
-  }
+  // showAllItems() {
+  //   this.itemCourseService.start = '';
+  //   this.itemCourseService.count = String(parseInt(this.itemCourseService.count) + 5);
+  // }
 }

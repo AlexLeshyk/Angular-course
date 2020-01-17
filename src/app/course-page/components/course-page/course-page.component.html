@@ -25,16 +25,16 @@
     <div class="pagination" *ngIf="auth.getAutorizationValue()">
       <ul>
         <li class="pagination-item">
-          <a class="btn secondary-btn pagination-link" (click)="onShowFirstRow()">1</a>
+          <a class="btn secondary-btn pagination-link" (click)="fetchItems('0','5')">1</a>
         </li>
         <li class="pagination-item">
-          <a class="btn secondary-btn pagination-link" (click)="onShowSecondRow()">2</a>
+          <a class="btn secondary-btn pagination-link" (click)="fetchItems('5','5')">2</a>
         </li>
         <li class="pagination-item">
-          <a class="btn secondary-btn pagination-link" (click)="onShowThirdRow()">3</a>
+          <a class="btn secondary-btn pagination-link" (click)="fetchItems('10','5')">3</a>
         </li>
         <li class="pagination-item next">
-          <a class="btn secondary-btn pagination-link" (click)="onShowAllItems()">Load more</a>
+          <a class="btn secondary-btn pagination-link" (click)="fetchItems('0','')">Load more</a>
         </li>
       </ul>
     </div>

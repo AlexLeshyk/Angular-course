@@ -37,9 +37,10 @@ export class BreadcrumbsComponent implements OnInit {
 
   updateId(): void {
     this.currentId = this.itemService.getCurrentId();
-    if (this.currentId !== undefined) {
+    if (this.currentId) {
       this.itemService.getItemById(this.currentId).subscribe( item => {
         this.courseItem = item;
+        this.courseItem.name = item.name;
       })
     }
   }

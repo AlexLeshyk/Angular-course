@@ -11,18 +11,15 @@ export class ItemCourseService {
   public currentId: number;
   public items: CourseItem[] = [];
 
-  public start = '0';
-  public count = '5';
-
   constructor(private http: HttpClient) { }
 
   // Get list
-  getItems(): Observable<CourseItem[]> {
-    let params = new HttpParams();
-    params = params.append('start', this.start);
-    params = params.append('count', this.count);
+  getItems(startIndex: string, count: string): Observable<CourseItem[]> {
     return this.http.get<CourseItem[]>('http://localhost:3004/courses', {
-      params,
+      params: {
+        'start': startIndex,
+        'count': count
+      },
       observe: 'response'
     })
     .pipe(
