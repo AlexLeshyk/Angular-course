@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { ShowParamsService } from '../../services/show-params.service';
@@ -11,8 +11,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-course-page',
   templateUrl: './course-page.component.html',
-  styleUrls: ['./course-page.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./course-page.component.scss']
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
@@ -40,16 +39,14 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemDelete(item: CourseItem) {
-    // this.itemCourseService.deleteItem(item);
     this.subscriptions.push(this.itemCourseService.removeItem(item)
     .subscribe( () => {
-      this.courseItems = this.courseItems.filter( t => t.id !==  item.id);
     }));
     this.fetchItems();
   }
 
   public onItemAdd() {
-    this.loadService.loadingBlock();
+    this.loadService.showLoad();
     this.router.navigate(['/courses/new']);
   }
 
@@ -95,10 +92,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   onShowAllItems() {
     this.showParamsService.showAllItems();
     this.fetchItems();
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    // console.log('OnChanges CoursePage Component', changes);
   }
 
   ngOnInit() {

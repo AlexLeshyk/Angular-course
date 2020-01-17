@@ -14,13 +14,6 @@ export class HeaderComponent implements OnInit {
   isAuth = true;
   aSub: Subscription;
   user : UserEntity;
-  // user : UserEntity = {
-  //   login: '1',
-  //   id: 9999,
-  //   password: 'fdfds',
-  //   first: 'fdsfsdf',
-  //   last: 'fddfdf'
-  // }
   currentId: number;
 
   public content: string = 'content here';
@@ -48,7 +41,6 @@ export class HeaderComponent implements OnInit {
   }
 
   openPopup() {
-    // this.isAuth = false;
   }
 
 }

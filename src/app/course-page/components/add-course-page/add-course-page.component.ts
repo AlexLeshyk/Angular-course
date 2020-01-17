@@ -32,7 +32,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.route.params.subscribe( (params: Params) => {
       this.isNewCourse = !params.id;
       if (!this.isNewCourse) {
-        // this.courseItem = this.itemCourseService.getItemById(params.id);
         this.route.data.subscribe( data => {
           this.courseItem = data.course
         })
@@ -81,7 +80,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     }));
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
-    this.loadService.loadingBlock();
+    this.loadService.showLoad();
   }
 
   onSaveAdd() {
@@ -91,7 +90,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       }));
     }
     this.router.navigate(['/courses']);
-    this.loadService.loadingBlock();
+    this.loadService.showLoad();
   }
 
   updatedate(event) {

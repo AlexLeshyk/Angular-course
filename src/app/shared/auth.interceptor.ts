@@ -13,7 +13,6 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // console.log('Intercept request', req.params);
 
     if(this.auth.getAutorizationValue()) {
       req = req.clone({

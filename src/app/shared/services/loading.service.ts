@@ -9,7 +9,7 @@ export class LoadingService {
 
   constructor() { }
 
-  loadingBlock() {
+  showLoad() {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;

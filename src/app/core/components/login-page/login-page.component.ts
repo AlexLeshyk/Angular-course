@@ -14,7 +14,7 @@ export class LoginPageComponent implements OnInit {
   loginValue: string = 'mail@yahoo.com';
   passwordValue: string = '111';
   isAuth: boolean;
-  aSub: Subscription;
+  authentication$: Subscription;
 
   constructor(
     private router: Router,
@@ -25,8 +25,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.aSub) {
-      this.aSub.unsubscribe();
+    if (this.authentication$) {
+      this.authentication$.unsubscribe();
     }
   }
 
@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
         login: this.loginValue,
         password: this.passwordValue
       }
-      this.aSub = this.auth.login(user).subscribe(() => {
+      this.authentication$ = this.auth.login(user).subscribe(() => {
         if ( this.auth.getAutorizationValue()) {
           this.auth.getUserById(user.id).subscribe(() => {
             console.log('user FirstName:',user.first,'user LastName:',user.last,'user Login:', user.login);

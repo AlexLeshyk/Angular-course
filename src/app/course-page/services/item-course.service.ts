@@ -27,7 +27,6 @@ export class ItemCourseService {
     })
     .pipe(
       map(response => {
-        // console.log('Response', response)
         return response.body
       }),
       catchError(error => {
@@ -39,7 +38,6 @@ export class ItemCourseService {
 
   // Get item by Id
   getItemById(id: number) {
-    // return this.items.find((course: CourseItem) => course.id === id);
     return this.http.get<CourseItem>(`http://localhost:3004/courses/${id}`);
   }
 
