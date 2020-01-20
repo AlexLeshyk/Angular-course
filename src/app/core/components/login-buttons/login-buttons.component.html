@@ -1,4 +1,4 @@
 <div class="buttons-wrapper">
-  <button (click)="login()">User login</button>
+  <button (click)="login()" *ngIf="!auth.getAutorizationValue()">User login</button>
   <button (click)="logout()">Log off</button>
 </div>

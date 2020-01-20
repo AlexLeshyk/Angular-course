@@ -1,96 +1,61 @@
 import { Injectable } from '@angular/core';
 import { CourseItem } from '../models/course-item.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import {catchError, map} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemCourseService {
   public currentId: number;
-  public items: CourseItem[] = [
-    {
-      id: 1,
-      title: 'Video converting course',
-      description: 'Learn about where you can find course descriptions, what information they include, how they work, and details about various components of a course description. Course descriptions report information about a university or college\'s classes. They\'re published both in course catalogs that outline degree requirements and in course schedules that contain descriptions for all courses offered during a particular semester.',
-      duration: 130,
-      dateObj: Date.parse("January 26, 2020"),
-      topRated: false
-    },
-    {
-      id: 2,
-      title: 'React in other life course',
-      description: 'some text here',
-      duration: 40,
-      dateObj: Date.parse("Nov 12, 2019"),
-      topRated: false
-    },
-    {
-      id: 3,
-      title: 'Awesome course', description: 'fdf gsdsf dgfdfgdf dhdghrqertqrt tretw',
-      duration: 95,
-      dateObj: Date.parse("Feb 20, 2020"),
-      topRated: false
-    },
-    {
-      id: 4,
-      title: 'Angular course',
-      description: 'fggdfg dgfdfg gdfgd lorem',
-      duration: 56,
-      dateObj: Date.parse("Nov 3, 2019"),
-      topRated: false
-    },
-    {
-      id: 5,
-      title: 'Javascript language course',
-      description: 'fggdfg dgfdfg gdfgd lorem',
-      duration: 67,
-      dateObj: Date.parse("Nov 11, 2019"),
-      topRated: true
-    },
-    {
-      id: 6,
-      title: 'Some more else course',
-      description: 'fggdfg dgfdfg gdfgd lorem',
-      duration: 202,
-      dateObj: Date.parse("Oct 30, 2019"),
-      topRated: true
-    }
-  ]
+  public items: CourseItem[] = [];
 
-  constructor() { }
+  public start = '0';
+  public count = '5';
+
+  constructor(private http: HttpClient) { }
 
   // Get list
-  public getItems(): CourseItem[] {
-    return this.items;
+  getItems(): Observable<CourseItem[]> {
+    let params = new HttpParams();
+    params = params.append('start', this.start);
+    params = params.append('count', this.count);
+    return this.http.get<CourseItem[]>('http://localhost:3004/courses', {
+      params,
+      observe: 'response'
+    })
+    .pipe(
+      map(response => {
+        // console.log('Response', response)
+        return response.body
+      }),
+      catchError(error => {
+        console.log('Error: ', error.message)
+        return throwError(error)
+      })
+    )
   }
 
   // Get item by Id
   getItemById(id: number) {
-    return this.items.find((course: CourseItem) => course.id === id);
+    // return this.items.find((course: CourseItem) => course.id === id);
+    return this.http.get<CourseItem>(`http://localhost:3004/courses/${id}`);
   }
 
-  removeItem(item: CourseItem) {
-    this.items = this.items.filter((course: CourseItem) => course.id !== item.id);
+  // Remove course
+  removeItem(course: CourseItem): Observable<void> {
+    return this.http.delete<void>(`http://localhost:3004/courses/${course.id}`);
   }
 
   // Update item
-  updateItem(item: CourseItem) {
-    return item;
+  updateItem(item: CourseItem): Observable<CourseItem> {
+    return this.http.put<CourseItem>(`http://localhost:3004/courses/${item.id}`, item);
   }
 
-  // Remove item
-  deleteItem(item: CourseItem) {
-    let confirmation = prompt("Do you really want to delete this course? Yes/No", "");
-    let index: number = this.items.indexOf(item);
-    if (index !== -1 && confirmation.toLowerCase()=="yes") {
-      this.items.splice(index, 1);
-    } else {
-      console.log("This course won't be deleted");
-    }
-  }
-
-  // Creat course
-  addItem(item: CourseItem): void {
-    this.items.push(item);
+  // Add course item
+  addItem(item: CourseItem): Observable<CourseItem> {
+    return this.http.post<CourseItem>('http://localhost:3004/courses', item);
   }
 
   rememberId(id: number): void {
@@ -100,7 +65,7 @@ export class ItemCourseService {
   getCurrentId(): number {
     return this.currentId;
   }
-  
+
   clear() {
     this.items = [];
   }

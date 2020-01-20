@@ -10,13 +10,15 @@ import { FormsModule } from '@angular/forms';
 import { SortPipe } from './pipes/sort.pipe';
 import { AddCoursePageComponent } from './components/add-course-page/add-course-page.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe, AddCoursePageComponent],
   imports: [
     CommonModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   exports: [
     CoursePageComponent,

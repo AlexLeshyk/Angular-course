@@ -7,7 +7,7 @@
     name="courseTitle"
     placeholder="Video course"
     type="text"
-    [(ngModel)]="courseItem.title"
+    [(ngModel)]="courseItem.name"
     />
   </div>
   <div class="form-group">
@@ -27,7 +27,7 @@
     name="courseDate"
     placeholder="Course date"
     type="text"
-    [ngModel]="courseItem.dateObj | date:'d MMM, y'"
+    [ngModel]="courseItem.date | date:'d MMM, y'"
     (ngModelChange)="updatedate($event)"
     #courseDate="ngModel"
     />
@@ -37,11 +37,21 @@
     <input
     id="course-duration"
     name="courseDuration"
-    placeholder="Course date"
+    placeholder="Course length"
     type="text"
-    [(ngModel)]="courseItem.duration"
+    [(ngModel)]="courseItem.length"
     />
-    <span>{{ courseItem.duration | duration }}</span>
+    <span>{{ courseItem.length | duration }}</span>
+  </div>
+  <div class="form-group" *ngIf="isNewCourse">
+    <label for="course-id">Course id:</label>
+    <input
+    id="course-id"
+    name="courseId"
+    placeholder="Course id"
+    type="text"
+    [(ngModel)]="courseItem.id"
+    />
   </div>
   <div class="form-group">
     <button *ngIf="!isNewCourse" type="button" class="btn primary-btn" (click)="onSaveEdit(courseItem)">Save course</button>

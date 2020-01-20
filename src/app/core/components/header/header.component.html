@@ -3,5 +3,4 @@
     <app-logo></app-logo>
     <app-login-buttons (open)="open.emit()" *ngIf="isAuth"></app-login-buttons>
   </div>
-  <div *ngFor="let user of usersEntity">{{ user.firstName }}</div>
 </header>

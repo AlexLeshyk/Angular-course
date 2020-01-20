@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { AuthorizationService } from  '../../services/authorization.service';
 import { ItemCourseService } from '../../services/item-course.service';
@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
-  styleUrls: ['./course-item.component.scss']
+  styleUrls: ['./course-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent implements OnInit, OnChanges {
 
@@ -31,7 +32,14 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public deleteCourseItem(): void {
-    this.onDelete.emit(this.courseItem);
+    if (this.auth.getAutorizationValue()) {
+      let confirmation = prompt("Do you really want to delete this course? Yes/No", "");
+      if (confirmation.toLowerCase() === "yes") {
+        this.onDelete.emit(this.courseItem);
+      } else {
+        console.log("This course won't be deleted", confirmation);
+      }
+    }
   }
 
   public updateCourseItem(): void {

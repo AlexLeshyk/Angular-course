@@ -1,20 +1,24 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { SubscriptionLike } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-course-page',
   templateUrl: './add-course-page.component.html',
   styleUrls: ['./add-course-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddCoursePageComponent implements OnInit {
+export class AddCoursePageComponent implements OnInit, OnDestroy {
   public storageProperty: CourseItem;
   public isNewCourse: boolean;
   @Input() public courseItem: CourseItem;
   @Input() public isSave: boolean;
+
+  courseItems: CourseItem[];
+  subscriptions: SubscriptionLike[] = [];
 
   constructor(
     private itemCourseService: ItemCourseService,
@@ -23,39 +27,45 @@ export class AddCoursePageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe( (params: Params) => {
+    this.subscriptions.push( this.route.params.subscribe( (params: Params) => {
       this.isNewCourse = !params.id;
       if (!this.isNewCourse) {
-        // this.courseItem = this.itemCourseService.getItemById(+params.id);
+        // this.courseItem = this.itemCourseService.getItemById(params.id);
         this.route.data.subscribe( data => {
           this.courseItem = data.course
         })
 
       } else {
         this.courseItem = {
-          title: '',
-          duration: 0,
+          name: '',
+          length: 0,
           id: 999,
-          dateObj: Date.now(),
+          date: Date.now(),
           description: '',
           topRated: false
         }
       }
       this.storageProperty = {
-        title: this.courseItem.title,
-        duration: this.courseItem.duration,
-        dateObj: this.courseItem.dateObj,
+        name: this.courseItem.name,
+        length: this.courseItem.length,
+        date: this.courseItem.date,
         description: this.courseItem.description,
         id: this.courseItem.id,
         topRated: this.courseItem.topRated
       }
-    })
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(
+      (subscription) => subscription.unsubscribe());
+    this.subscriptions = [];
   }
 
   onCancel() {
-    this.courseItem.title = this.storageProperty.title;
-    this.courseItem.duration = this.storageProperty.duration;
-    this.courseItem.dateObj = this.storageProperty.dateObj;
+    this.courseItem.name = this.storageProperty.name;
+    this.courseItem.length = this.storageProperty.length;
+    this.courseItem.date = this.storageProperty.date;
     this.courseItem.description = this.storageProperty.description;
     this.courseItem.id = this.storageProperty.id;
     this.courseItem.topRated = this.storageProperty.topRated;
@@ -64,19 +74,23 @@ export class AddCoursePageComponent implements OnInit {
   }
 
   onSaveEdit(item: CourseItem) {
-    this.itemCourseService.updateItem(item);
+    this.subscriptions.push(this.itemCourseService.updateItem(item).subscribe( item => {
+      this.courseItem.id = item.id;
+    }));
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
   }
 
   onSaveAdd() {
     if (this.isNewCourse) {
-      this.itemCourseService.addItem(this.courseItem);
+      this.subscriptions.push(this.itemCourseService.addItem(this.courseItem).subscribe( item => {
+        this.courseItems.push(item);
+      }));
     }
     this.router.navigate(['/courses']);
   }
 
   updatedate(event) {
-    this.courseItem.dateObj = new Date(event);
+    this.courseItem.date = new Date(event);
   }
 }

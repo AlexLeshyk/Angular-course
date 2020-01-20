@@ -16,6 +16,6 @@ export class CourseResolver implements Resolve<CourseItem> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<CourseItem> | Promise<CourseItem> | CourseItem {
-    return this.courseService.getItemById(+route.params['id']);
+    return this.courseService.getItemById(route.params['id']);
   }
 }

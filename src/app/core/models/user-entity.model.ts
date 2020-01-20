@@ -1,14 +1,18 @@
 export interface IUserEntityItem {
-  id: number;
-  firstName: string;
-  lastName: string;
+  id?: number;
+  first?: string;
+  last?: string;
+  login: string;
+  password: string;
 }
 
 export class UserEntity implements IUserEntityItem {
   constructor(
-    public id: number,
-    public firstName: string,
-    public lastName: string
+    public login: string,
+    public password: string,
+    public first?: string,
+    public last?: string,
+    public id?: number
   ) {
   }
 }

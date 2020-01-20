@@ -17,10 +17,10 @@ export class StyleDirective {
   }
 
   ngOnInit() {
-    if ( this.courseItem.dateObj < this.currentDate && this.courseItem.dateObj >= this.freshCourseDate) {
+    if ( this.courseItem.date < this.currentDate && this.courseItem.date >= this.freshCourseDate) {
       this.renderer.addClass(this.ElementRef.nativeElement, 'fresh');
     }
-    if (this.courseItem.dateObj > this.currentDate) {
+    if (this.courseItem.date > this.currentDate) {
       this.renderer.addClass(this.ElementRef.nativeElement, 'upcoming' );
     }
   }
