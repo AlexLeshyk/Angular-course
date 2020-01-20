@@ -16,7 +16,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   public storageProperty: CourseItem;
   public isNewCourse: boolean;
   @Input() public courseItem: CourseItem;
-  @Input() public isSave: boolean;
 
   courseItems: CourseItem[];
   subscriptions: SubscriptionLike[] = [];

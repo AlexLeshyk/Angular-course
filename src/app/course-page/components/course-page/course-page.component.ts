@@ -17,6 +17,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   public inputValue = '';
   message: string;
   error: '';
+  startIndex: string = '0';
+  count: string = '5';
   courseItems: CourseItem[] = [];
   private searchTextChanged = new Subject<string>();
 
@@ -40,7 +42,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.itemCourseService.removeItem(item)
     .subscribe( () => {
     }));
-    this.fetchItems('0','5');
+    this.fetchItems(this.startIndex,this.count);
   }
 
   public onItemAdd() {
@@ -80,7 +82,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
         this.message = "Session is overed. Please enter your data again";
       }
     });
-    this.fetchItems('0','5');
+    this.fetchItems(this.startIndex,this.count);
 
     this.subscriptions.push(this.searchTextChanged
       .pipe(
