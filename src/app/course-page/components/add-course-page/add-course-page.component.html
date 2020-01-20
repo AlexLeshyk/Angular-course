@@ -1,5 +1,8 @@
 <div class="edit-course-wrapper">
-  <h2>Course update page:</h2>
+  <h2 *ngIf="!isNewCourse; else pageTitle">Course update page:</h2>
+  <ng-template #pageTitle>
+    <h2>Add new course page:</h2>
+  </ng-template>
   <div class="form-group">
     <label for="course-title">Title:</label>
     <input

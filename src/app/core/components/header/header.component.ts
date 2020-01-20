@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
 
   updateId(): void {
     this.currentId = this.auth.getCurrentId();
-    if (this.currentId !== undefined) {
+    if (this.currentId) {
       this.auth.getUserById(this.currentId).subscribe( item => {
         this.user = item;
       })

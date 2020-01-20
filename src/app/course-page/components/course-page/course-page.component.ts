@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
-import { ShowParamsService } from '../../services/show-params.service';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { LoadingService }  from '../../../shared/services/loading.service';
 import { SubscriptionLike, Subject } from 'rxjs';
@@ -18,6 +17,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   public inputValue = '';
   message: string;
   error: '';
+  startIndex: string = '0';
+  count: string = '5';
   courseItems: CourseItem[] = [];
   private searchTextChanged = new Subject<string>();
 
@@ -26,7 +27,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private itemCourseService: ItemCourseService,
-    private showParamsService: ShowParamsService,
     private router: Router,
     private route: ActivatedRoute,
     private auth: AuthorizationService,
@@ -42,7 +42,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.itemCourseService.removeItem(item)
     .subscribe( () => {
     }));
-    this.fetchItems();
+    this.fetchItems(this.startIndex,this.count);
   }
 
   public onItemAdd() {
@@ -62,8 +62,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     this.searchTextChanged.next(this.inputValue);
   }
 
-  fetchItems() {
-    this.subscriptions.push(this.itemCourseService.getItems().subscribe(items => {
+  fetchItems(startIndex: string, count: string) {
+    this.subscriptions.push(this.itemCourseService.getItems(startIndex,count).subscribe(items => {
       this.courseItems = items;
     }, error =>{
       this.error = error.message;
@@ -74,26 +74,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   onSearch() {
   }
 
-  onShowSecondRow() {
-    this.showParamsService.showSecondRowItems();
-    this.fetchItems();
-  }
-
-  onShowThirdRow() {
-    this.showParamsService.showThirdRowItems();
-    this.fetchItems();
-  }
-
-  onShowFirstRow() {
-    this.showParamsService.showFirstRowItems();
-    this.fetchItems();
-  }
-
-  onShowAllItems() {
-    this.showParamsService.showAllItems();
-    this.fetchItems();
-  }
-
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
       if (params['loginAgain']) {
@@ -102,7 +82,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
         this.message = "Session is overed. Please enter your data again";
       }
     });
-    this.fetchItems();
+    this.fetchItems(this.startIndex,this.count);
 
     this.subscriptions.push(this.searchTextChanged
       .pipe(
