@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CourseItem } from '../../../course-page/models/course-item.model';
 import { ItemCourseService } from '../../../course-page/services/item-course.service';
 import { Router, NavigationEnd} from '@angular/router';
-import { AuthorizationService } from  '../../../course-page/services/authorization.service';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -12,14 +13,8 @@ import { AuthorizationService } from  '../../../course-page/services/authorizati
 export class BreadcrumbsComponent implements OnInit {
   currentId: number;
 
-  courseItem : CourseItem = {
-    name: '',
-    length: 0,
-    id: 999,
-    date: Date.now(),
-    description: '',
-    topRated: false
-  }
+  courseItem : CourseItem;
+  subscription$: Subscription;
 
   constructor(
     private itemService: ItemCourseService,
@@ -35,11 +30,18 @@ export class BreadcrumbsComponent implements OnInit {
     });
   }
 
-  updateId(): void {
+  ngOnDestroy() {
+    if (this.subscription$) {
+      this.subscription$.unsubscribe();
+    }
+  }
+
+  updateId() {
     this.currentId = this.itemService.getCurrentId();
-    if (this.currentId !== undefined) {
-      this.itemService.getItemById(this.currentId).subscribe( item => {
+    if (this.currentId) {
+      this.subscription$ = this.itemService.getItemById(this.currentId).subscribe( item => {
         this.courseItem = item;
+        console.log('name',this.courseItem.name);
       })
     }
   }

@@ -4,7 +4,7 @@ import { CoursePageComponent } from './course-page/components/course-page/course
 import { AddCoursePageComponent } from './course-page/components/add-course-page/add-course-page.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { LoginPageComponent } from './core/components/login-page/login-page.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './shared/auth.guard';
 import { CourseResolver } from './course-resolver.guard';
 
 const routes: Routes = [

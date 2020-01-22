@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShowParamsService } from './show-params.service';
+import { LoadingService } from './loading.service';
 
-describe('ShowParamsService', () => {
+describe('LoadingService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ShowParamsService = TestBed.get(ShowParamsService);
+    const service: LoadingService = TestBed.get(LoadingService);
     expect(service).toBeTruthy();
   });
 });

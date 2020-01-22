@@ -1,4 +1,8 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
+import { Subscription } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { UserEntity } from '../../models/user-entity.model';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +11,36 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() open = new EventEmitter<void>();
-  @Input() isAuth = true;
+  isAuth = true;
+  aSub: Subscription;
+  user : UserEntity;
+  currentId: number;
 
   public content: string = 'content here';
 
-  constructor() {}
+  constructor(
+    private auth: AuthorizationService,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.updateId();
+      }
+    });
+  }
+
+  updateId(): void {
+    this.currentId = this.auth.getCurrentId();
+    if (this.currentId) {
+      this.auth.getUserById(this.currentId).subscribe( item => {
+        this.user = item;
+      })
+    }
+  }
+
+  openPopup() {
   }
 
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, SimpleChanges, OnChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
-import { AuthorizationService } from  '../../services/authorization.service';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { ItemCourseService } from '../../services/item-course.service';
+import { LoadingService }  from '../../../shared/services/loading.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +20,8 @@ export class CourseItemComponent implements OnInit, OnChanges {
   constructor(
     private auth: AuthorizationService,
     private router: Router,
-    private itemService: ItemCourseService
+    private itemService: ItemCourseService,
+    private loadService: LoadingService
   ) {
   }
 
@@ -43,9 +45,9 @@ export class CourseItemComponent implements OnInit, OnChanges {
   }
 
   public updateCourseItem(): void {
-    if (this.auth.getAutorizationValue()) {
-      this.itemService.rememberId(this.courseItem.id);
-    }
+
+    this.itemService.rememberId(this.courseItem.id);
+    this.loadService.showLoad();
     this.router.navigate(['/courses', this.courseItem.id]);
   }
 

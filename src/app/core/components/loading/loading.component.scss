@@ -1,0 +1,45 @@
+.popup-loading-content {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-left: -40px;
+  margin-top: -40px;
+  &::before, &::after {
+      content: '';
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      position: absolute;
+  }
+  &::before {
+      animation: spin 1s linear infinite;
+      border: 5px solid transparent;
+      border-top: 5px solid #fff;
+      border-right: 5px solid #fff;
+      border-left: 5px solid #fff;
+  }
+  &::after {
+      border: 5px solid #fff;
+      animation: pulse-inner .8s ease-in infinite;
+  }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse-inner {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 1;
+    }
+}

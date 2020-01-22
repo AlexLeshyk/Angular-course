@@ -1,33 +1,36 @@
-import { Component, OnInit, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
-import { ShowParamsService } from '../../services/show-params.service';
-import { AuthorizationService } from  '../../services/authorization.service';
-import { SubscriptionLike } from 'rxjs';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthorizationService } from  '../../../shared/services/authorization.service';
+import { LoadingService }  from '../../../shared/services/loading.service';
+import { SubscriptionLike, Subject } from 'rxjs';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-page',
   templateUrl: './course-page.component.html',
-  styleUrls: ['./course-page.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./course-page.component.scss']
 })
 export class CoursePageComponent implements OnInit, OnDestroy {
 
   public inputValue = '';
-
+  message: string;
+  error: '';
+  startIndex: string = '0';
+  count: string = '5';
   courseItems: CourseItem[] = [];
+  private searchTextChanged = new Subject<string>();
 
   public counter: number = 0;
   subscriptions: SubscriptionLike[] = [];
 
   constructor(
     private itemCourseService: ItemCourseService,
-    private showParamsService: ShowParamsService,
     private router: Router,
-    private http: HttpClient,
-    private auth: AuthorizationService
+    private route: ActivatedRoute,
+    private auth: AuthorizationService,
+    private loadService: LoadingService
   ) { }
 
   public change(): void {
@@ -36,68 +39,65 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   public onItemDelete(item: CourseItem) {
-    // this.itemCourseService.deleteItem(item);
     this.subscriptions.push(this.itemCourseService.removeItem(item)
     .subscribe( () => {
-      this.courseItems = this.courseItems.filter( t => t.id !==  item.id);
     }));
-    this.fetchItems();
+    this.fetchItems(this.startIndex,this.count);
   }
 
   public onItemAdd() {
+    this.loadService.showLoad();
     this.router.navigate(['/courses/new']);
   }
 
   onValueChanged(value: string) {
     this.inputValue = value;
-  }
 
-  fetchItems() {
-    this.subscriptions.push(this.itemCourseService.getItems().subscribe(items => {
-      this.courseItems = items;
-    }));
-  }
-
-  onSearch() {
     this.router.navigate(['/courses'],{
       queryParams : {
         textFragment: this.inputValue
       }
     });
 
-    this.subscriptions.push(this.http.get<CourseItem[]>(`http://localhost:3004/courses?textFragment=${this.inputValue}`)
-      .subscribe(items => {
-        this.courseItems = items;
-    }));
+    this.searchTextChanged.next(this.inputValue);
   }
 
-  onShowSecondRow() {
-    this.showParamsService.showSecondRowItems();
-    this.fetchItems();
+  fetchItems(startIndex: string, count: string) {
+    this.subscriptions.push(this.itemCourseService.getItems(startIndex,count).subscribe(items => {
+      this.courseItems = items;
+    }, error =>{
+      this.error = error.message;
+    }
+  ));
   }
 
-  onShowThirdRow() {
-    this.showParamsService.showThirdRowItems();
-    this.fetchItems();
-  }
-
-  onShowFirstRow() {
-    this.showParamsService.showFirstRowItems();
-    this.fetchItems();
-  }
-
-  onShowAllItems() {
-    this.showParamsService.showAllItems();
-    this.fetchItems();
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    // console.log('OnChanges CoursePage Component', changes);
+  onSearch() {
   }
 
   ngOnInit() {
-    // this.courseItems = this.itemCourseService.getItems();
-    this.fetchItems();
+    this.route.queryParams.subscribe( (params: Params) => {
+      if (params['loginAgain']) {
+        this.message = "Please, login before";
+      } else if (params['authFailed']){
+        this.message = "Session is overed. Please enter your data again";
+      }
+    });
+    this.fetchItems(this.startIndex,this.count);
+
+    this.subscriptions.push(this.searchTextChanged
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged()
+      ).subscribe(value => {
+        this.inputValue = value;
+
+        if (this.inputValue.trim() && this.inputValue.length > 2 ) {
+          this.itemCourseService.onSearchItems(this.inputValue)
+            .subscribe(items => {
+              this.courseItems = items;
+          });
+        }
+      }));
   }
 
   ngOnDestroy() {

@@ -21,6 +21,19 @@
   max-width: 500px;
 }
 
+.alert-info {
+  padding: 10px 15px;
+  color: #fff;
+  background-color: #9bc837;
+  font-size: 12px;
+  text-transform: uppercase;
+  max-width: 360px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
 
 .pagination {
   padding: 30px 0 15px;
