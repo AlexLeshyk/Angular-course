@@ -3,9 +3,12 @@ import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { LoadingService }  from '../../../shared/services/loading.service';
-import { SubscriptionLike, Subject } from 'rxjs';
+import { SubscriptionLike, Subject, Observable } from 'rxjs';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import * as CourseItemActions from '../../course-item.action';
+import CourseItemState from '../../state/course-item.state';
 
 @Component({
   selector: 'app-course-page',
@@ -21,8 +24,9 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   count: string = '5';
   courseItems: CourseItem[] = [];
   private searchTextChanged = new Subject<string>();
+  items$: Observable<CourseItemState>;
+  courseItemError: Error = null;
 
-  public counter: number = 0;
   subscriptions: SubscriptionLike[] = [];
 
   constructor(
@@ -30,12 +34,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private auth: AuthorizationService,
-    private loadService: LoadingService
-  ) { }
-
-  public change(): void {
-    this.counter = this.counter + 1;
-    console.log(this.counter);
+    private loadService: LoadingService,
+    private store: Store<{ course_items: CourseItemState }>
+  ) {
+    this.items$ = store.pipe(select('course_items'));
   }
 
   public onItemDelete(item: CourseItem) {
@@ -71,9 +73,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   ));
   }
 
-  onSearch() {
-  }
-
   ngOnInit() {
     this.route.queryParams.subscribe( (params: Params) => {
       if (params['loginAgain']) {
@@ -82,22 +81,33 @@ export class CoursePageComponent implements OnInit, OnDestroy {
         this.message = "Session is overed. Please enter your data again";
       }
     });
-    this.fetchItems(this.startIndex,this.count);
+    // this.fetchItems(this.startIndex,this.count);
 
-    this.subscriptions.push(this.searchTextChanged
+    this.subscriptions.push(this.items$
       .pipe(
-        debounceTime(1000),
-        distinctUntilChanged()
-      ).subscribe(value => {
-        this.inputValue = value;
+        map(x => {
+          this.courseItems = x.CourseItems;
+          this.courseItemError = x.CourseItemError;
+        })
+      ).subscribe());
 
-        if (this.inputValue.trim() && this.inputValue.length > 2 ) {
-          this.itemCourseService.onSearchItems(this.inputValue)
-            .subscribe(items => {
-              this.courseItems = items;
-          });
-        }
-      }));
+      this.subscriptions.push(this.searchTextChanged
+        .pipe(
+          debounceTime(1000),
+          distinctUntilChanged()
+        ).subscribe(value => {
+          this.inputValue = value;
+
+          if (this.inputValue.trim() && this.inputValue.length > 2 ) {
+            this.itemCourseService.onSearchItems(this.inputValue)
+              .subscribe(items => {
+                this.courseItems = items;
+            });
+          }
+        }));
+
+    this.store.dispatch(CourseItemActions.BeginGetCourseItemAction());
+
   }
 
   ngOnDestroy() {
