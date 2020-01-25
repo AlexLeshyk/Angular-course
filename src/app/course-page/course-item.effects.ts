@@ -29,19 +29,35 @@ export class CourseItemEffects {
     )
   );
 
-  // CreateCourseItems$: Observable<Action> = createEffect(() =>
-  //   this.action$.pipe(
-  //     ofType(CourseItemActions.BeginCreateCourseItemAction),
-  //     mergeMap(action =>
-  //       this.itemService.createCourseItems(action.payload).pipe(
-  //         map((data: CourseItem) => {
-  //           return CourseItemActions.SuccessCreateCourseItemAction({ payload: data });
-  //         }),
-  //         catchError((error: Error) => {
-  //           return of(CourseItemActions.ErrorCourseItemAction(error));
-  //         })
-  //       )
-  //     )
-  //   )
-  // );
+  CreateCourseItems$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(CourseItemActions.BeginCreateCourseItemAction),
+      mergeMap(action =>
+        this.itemService.addItem(action.payload).pipe(
+          map((data: CourseItem) => {
+            return CourseItemActions.SuccessCreateCourseItemAction({ payload: data });
+          }),
+          catchError((error: Error) => {
+            return of(CourseItemActions.ErrorCourseItemAction(error));
+          })
+        )
+      )
+    )
+  );
+
+  UpdateCourseItems$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(CourseItemActions.BeginUpdateCourseItemAction),
+      mergeMap(action =>
+        this.itemService.updateItem(action.payload).pipe(
+          map((data: CourseItem) => {
+            return CourseItemActions.SuccessUpdateCourseItemAction({ payload: data });
+          }),
+          catchError((error: Error) => {
+            return of(CourseItemActions.ErrorCourseItemAction(error));
+          })
+        )
+      )
+    )
+  );
 }

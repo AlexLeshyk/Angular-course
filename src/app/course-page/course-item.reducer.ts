@@ -11,10 +11,16 @@ const reducer = createReducer(
   on(CourseItemActions.CreateCourseItemAction, (state: CourseItemState, item: CourseItem) => {
     return { ...state, CourseItems: [...state.CourseItems, item], CourseItemError: null };
   }),
+  on(CourseItemActions.UpdateCourseItemAction, (state: CourseItemState, item: CourseItem) => {
+    return { ...state, CourseItems: [...state.CourseItems, item], CourseItemError: null };
+  }),
   on(CourseItemActions.SuccessGetCourseItemAction, (state: CourseItemState, { payload }) => {
     return { ...state, CourseItems: payload };
   }),
   on(CourseItemActions.SuccessCreateCourseItemAction, (state: CourseItemState, { payload }) => {
+    return { ...state, CourseItems: [...state.CourseItems, payload], CourseItemError: null };
+  }),
+  on(CourseItemActions.SuccessUpdateCourseItemAction, (state: CourseItemState, { payload }) => {
     return { ...state, CourseItems: [...state.CourseItems, payload], CourseItemError: null };
   }),
   on(CourseItemActions.ErrorCourseItemAction, (state: CourseItemState, error: Error) => {

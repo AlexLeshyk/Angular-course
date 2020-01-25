@@ -25,4 +25,20 @@ export const SuccessCreateCourseItemAction = createAction(
   props<{ payload: CourseItem }>()
 );
 
+
+export const UpdateCourseItemAction = createAction(
+  '[CourseItem] - Update CourseItem',
+  props<CourseItem>()
+);
+
+export const BeginUpdateCourseItemAction = createAction(
+  '[CourseItem] - Begin Update CourseItem',
+  props<{ payload: CourseItem }>()
+);
+
+export const SuccessUpdateCourseItemAction = createAction(
+  '[CourseItem.id] - Success Update CourseItem',
+  props<{ payload: CourseItem }>()
+);
+
 export const ErrorCourseItemAction = createAction('[CourseItem] - Error', props<Error>());
