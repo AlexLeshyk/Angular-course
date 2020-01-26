@@ -81,9 +81,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSaveEdit(item: CourseItem) {
-    // this.subscriptions.push(this.itemCourseService.updateItem(item).subscribe( item => {
-    //   this.courseItem.id = item.id;
-    // }));
     this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
@@ -92,9 +89,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   onSaveAdd() {
     if (this.isNewCourse) {
-      // this.subscriptions.push(this.itemCourseService.addItem(this.courseItem).subscribe( item => {
-      //   this.courseItems.push(item);
-      // }));
       this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
     }
     this.router.navigate(['/courses']);

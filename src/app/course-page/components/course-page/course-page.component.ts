@@ -19,7 +19,6 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   public inputValue = '';
   message: string;
-  error: '';
   startIndex: string = '0';
   count: string = '5';
   courseItems: CourseItem[] = [];
@@ -65,12 +64,18 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   fetchItems(startIndex: string, count: string) {
-    this.subscriptions.push(this.itemCourseService.getItems(startIndex,count).subscribe(items => {
-      this.courseItems = items;
-    }, error =>{
-      this.error = error.message;
-    }
-  ));
+    this.itemCourseService.count = count;
+    this.itemCourseService.startIndex = startIndex;
+    this.subscriptions.push(this.items$
+    .pipe(
+      map(x => {
+        console.log('items',x);
+        this.courseItems = x.CourseItems;
+        this.courseItemError = x.CourseItemError;
+      })
+    ).subscribe());
+
+    this.store.dispatch(CourseItemActions.BeginGetCourseItemAction());
   }
 
   ngOnInit() {
@@ -81,33 +86,23 @@ export class CoursePageComponent implements OnInit, OnDestroy {
         this.message = "Session is overed. Please enter your data again";
       }
     });
-    // this.fetchItems(this.startIndex,this.count);
+    this.fetchItems(this.startIndex,this.count);
 
-    this.subscriptions.push(this.items$
+    this.subscriptions.push(this.searchTextChanged
       .pipe(
-        map(x => {
-          this.courseItems = x.CourseItems;
-          this.courseItemError = x.CourseItemError;
-        })
-      ).subscribe());
+        debounceTime(1000),
+        distinctUntilChanged()
+      ).subscribe(value => {
+        this.inputValue = value;
 
-      this.subscriptions.push(this.searchTextChanged
-        .pipe(
-          debounceTime(1000),
-          distinctUntilChanged()
-        ).subscribe(value => {
-          this.inputValue = value;
-
-          if (this.inputValue.trim() && this.inputValue.length > 2 ) {
-            this.itemCourseService.onSearchItems(this.inputValue)
-              .subscribe(items => {
-                this.courseItems = items;
-            });
-          }
-        }));
-
-    this.store.dispatch(CourseItemActions.BeginGetCourseItemAction());
-
+        if (this.inputValue.trim() && this.inputValue.length > 2 ) {
+          this.itemCourseService.onSearchItems(this.inputValue)
+            .subscribe(items => {
+              this.courseItems = items;
+          });
+        }
+      })
+    );
   }
 
   ngOnDestroy() {

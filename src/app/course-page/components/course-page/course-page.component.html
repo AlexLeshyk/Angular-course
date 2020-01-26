@@ -9,7 +9,7 @@
   <div class="add-course-wrapper">
     <button (click)="onItemAdd()" class="btn secondary-btn">Add course</button>
   </div>
-  <p class="error" *ngIf="error; else itemsBlock">{{ error }}</p>
+  <p class="error" *ngIf="courseItemError; else itemsBlock">Error message: {{ courseItemError.message }}</p>
   <ng-template #itemsBlock>
     <div *ngIf="courseItems.length; else noItems">
       <app-course-item

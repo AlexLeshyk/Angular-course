@@ -10,15 +10,17 @@ import {catchError, map, debounceTime, tap, distinctUntilChanged } from 'rxjs/op
 export class ItemCourseService {
   public currentId: number;
   public items: CourseItem[] = [];
+  count: string;
+  startIndex: string;
 
   constructor(private http: HttpClient) { }
 
   // Get list
-  getItems(startIndex: string, count: string): Observable<CourseItem[]> {
+  getItems(): Observable<CourseItem[]> {
     return this.http.get<CourseItem[]>('http://localhost:3004/courses', {
       params: {
-        'start': startIndex,
-        'count': count
+        'start': this.startIndex,
+        'count': this.count
       },
       observe: 'response'
     })

@@ -9,15 +9,13 @@ import { CourseItem } from './models/course-item.model';
 
 @Injectable()
 export class CourseItemEffects {
-  startIndex: string;
-  count: string;
   constructor(private itemService: ItemCourseService, private action$: Actions) {}
 
   GetCourseItems$: Observable<Action> = createEffect(() =>
     this.action$.pipe(
       ofType(CourseItemActions.BeginGetCourseItemAction),
       mergeMap(action =>
-        this.itemService.getItems(this.startIndex, this.count).pipe(
+        this.itemService.getItems().pipe(
           map((data: CourseItem[]) => {
             return CourseItemActions.SuccessGetCourseItemAction({ payload: data });
           }),
