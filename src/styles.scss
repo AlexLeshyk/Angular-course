@@ -53,6 +53,10 @@ body {
   border: none;
   border-radius: 3px;
   transition: all 0.4s ease-out;
+
+  &:disabled {
+    background: gray;
+  }
 }
 
 .primary-btn {
@@ -143,9 +147,26 @@ textarea {
   padding: 6px 10px;
 }
 
+input, textarea {
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+}
+
 textarea  {
   resize: none;
   height: 100px;
+}
+
+.validation {
+  padding-top: 3px;
+  small {
+    font-size: 11px;
+    color: red;
+  }
 }
 
 .clear::before {

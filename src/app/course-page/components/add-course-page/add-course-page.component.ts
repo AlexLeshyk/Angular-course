@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import CourseItemState from '../../state/course-item.state';
 import * as CourseItemActions from '../../course-item.action';
 import { select, Store } from '@ngrx/store';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-course-page',
@@ -64,8 +64,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       }
     });
     this.form = new FormGroup({
-      courseName: new FormControl(this.courseItem.name),
-      description: new FormControl(this.courseItem.description),
+      courseName: new FormControl(this.courseItem.name, [Validators.maxLength(50),Validators.required]),
+      description: new FormControl(this.courseItem.description, [Validators.maxLength(500),Validators.required]),
       length: new FormControl(this.courseItem.length),
       courseId: new FormControl(this.courseItem.id),
       courseDate: new FormControl(this.courseItem.date)
@@ -79,17 +79,19 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    console.log('Form', this.form);
-    const formData = {...this.form.value}
-    console.log('Form Data', formData);
-    if (this.isNewCourse) {
-      this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
-    } else {
-      this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: this.courseItem }));
-      this.itemCourseService.currentId = undefined;
+    if (this.form.valid) {
+      console.log('Form', this.form);
+      const formData = {...this.form.value}
+      console.log('Form Data', formData);
+      if (this.isNewCourse) {
+        this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
+      } else {
+        this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: this.courseItem }));
+        this.itemCourseService.currentId = undefined;
+      }
+      this.router.navigate(['/courses']);
+      this.loadService.showLoad();
     }
-    this.router.navigate(['/courses']);
-    this.loadService.showLoad();
   }
 
   onCancel() {
