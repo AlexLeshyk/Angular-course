@@ -3,62 +3,62 @@
   <ng-template #pageTitle>
     <h2>Add new course page:</h2>
   </ng-template>
-  <div class="form-group">
-    <label for="course-title">Title:</label>
-    <input
-    id="course-title"
-    name="courseTitle"
-    placeholder="Video course"
-    type="text"
-    [(ngModel)]="courseItem.name"
-    />
-  </div>
-  <div class="form-group">
-    <label for="course-info">Description:</label>
-    <textarea
-    id="course-info"
-    name="courseInfo"
-    name="textarea" rows="8" cols="80"
-    placeholder="Course description"
-    [(ngModel)]="courseItem.description"
-    ></textarea>
-  </div>
-  <div class="form-group">
-    <label for="course-date">Date:</label>
-    <input
-    id="course-date"
-    name="courseDate"
-    placeholder="Course date"
-    type="text"
-    [ngModel]="courseItem.date | date:'d MMM, y'"
-    (ngModelChange)="updatedate($event)"
-    #courseDate="ngModel"
-    />
-  </div>
-  <div class="form-group">
-    <label for="course-duration">Duration:</label>
-    <input
-    id="course-duration"
-    name="courseDuration"
-    placeholder="Course length"
-    type="text"
-    [(ngModel)]="courseItem.length"
-    />
-    <span>{{ courseItem.length | duration }}</span>
-  </div>
-  <div class="form-group" *ngIf="isNewCourse">
-    <label for="course-id">Course id:</label>
-    <input
-    id="course-id"
-    name="courseId"
-    placeholder="Course id"
-    type="text"
-    [(ngModel)]="courseItem.id"
-    />
-  </div>
-  <div class="form-group">
-    <button *ngIf="!isNewCourse" type="button" class="btn primary-btn" (click)="onSaveEdit(courseItem)">Save course</button>
-    <button *ngIf="isNewCourse" type="button" class="btn primary-btn" (click)="onSaveAdd(courseItem)">Add course</button>
-    <button type="button" class="btn secondary-btn" (click)="onCancel()">Cancel</button>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="course-title">Title:</label>
+      <input
+      formControlName="courseName"
+      id="course-title"
+      name="courseTitle"
+      placeholder="Video course"
+      type="text"
+      />
+    </div>
+    <div class="form-group">
+      <label for="course-info">Description:</label>
+      <textarea
+      formControlName="description"
+      id="course-info"
+      name="courseInfo"
+      name="textarea" rows="8" cols="80"
+      placeholder="Course description"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="course-date">Date:</label>
+      <input
+      formControlName="courseDate"
+      id="course-date"
+      name="courseDate"
+      placeholder="Course date"
+      type="text"
+      />
+    </div>
+    <div class="form-group">
+      <label for="course-duration">Duration:</label>
+      <input
+      formControlName="length"
+      id="course-duration"
+      name="courseDuration"
+      placeholder="Course length"
+      type="text"
+      />
+      <span>{{ courseItem.length | duration }}</span>
+    </div>
+    <div class="form-group" *ngIf="isNewCourse">
+      <label for="course-id">Course id:</label>
+      <input
+      formControlName="courseId"
+      id="course-id"
+      name="courseId"
+      placeholder="Course id"
+      type="text"
+      />
+    </div>
+    <div class="form-group">
+      <button *ngIf="!isNewCourse" type="submit" class="btn primary-btn">Save course</button>
+      <button *ngIf="isNewCourse" type="submit" class="btn primary-btn">Add course</button>
+      <button type="button" class="btn secondary-btn" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
 </div>

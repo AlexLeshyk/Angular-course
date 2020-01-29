@@ -6,7 +6,7 @@ import { SearchControlComponent } from './components/search-control/search-contr
 import { StyleDirective } from './directives/style.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SortPipe } from './pipes/sort.pipe';
 import { AddCoursePageComponent } from './components/add-course-page/add-course-page.component';
 import { AppRoutingModule } from '../app-routing.module';
@@ -17,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     SharedModule
   ],

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import CourseItemState from '../../state/course-item.state';
 import * as CourseItemActions from '../../course-item.action';
 import { select, Store } from '@ngrx/store';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add-course-page',
@@ -19,6 +20,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   public storageProperty: CourseItem;
   public isNewCourse: boolean;
   @Input() public courseItem: CourseItem;
+  form : FormGroup;
 
   courseItems: CourseItem[];
   subscriptions: SubscriptionLike[] = [];
@@ -61,12 +63,33 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
         topRated: this.courseItem.topRated
       }
     });
+    this.form = new FormGroup({
+      courseName: new FormControl(this.courseItem.name),
+      description: new FormControl(this.courseItem.description),
+      length: new FormControl(this.courseItem.length),
+      courseId: new FormControl(this.courseItem.id),
+      courseDate: new FormControl(this.courseItem.date)
+    })
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(
       (subscription) => subscription.unsubscribe());
     this.subscriptions = [];
+  }
+
+  submit() {
+    console.log('Form', this.form);
+    const formData = {...this.form.value}
+    console.log('Form Data', formData);
+    if (this.isNewCourse) {
+      this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
+    } else {
+      this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: this.courseItem }));
+      this.itemCourseService.currentId = undefined;
+    }
+    this.router.navigate(['/courses']);
+    this.loadService.showLoad();
   }
 
   onCancel() {
@@ -80,20 +103,20 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.itemCourseService.currentId = undefined;
   }
 
-  onSaveEdit(item: CourseItem) {
-    this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
-    this.router.navigate(['/courses']);
-    this.itemCourseService.currentId = undefined;
-    this.loadService.showLoad();
-  }
+  // onSaveEdit(item: CourseItem) {
+  //   this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
+  //   this.router.navigate(['/courses']);
+  //   this.itemCourseService.currentId = undefined;
+  //   this.loadService.showLoad();
+  // }
 
-  onSaveAdd() {
-    if (this.isNewCourse) {
-      this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
-    }
-    this.router.navigate(['/courses']);
-    this.loadService.showLoad();
-  }
+  // onSaveAdd() {
+  //   if (this.isNewCourse) {
+  //     this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
+  //   }
+  //   this.router.navigate(['/courses']);
+  //   this.loadService.showLoad();
+  // }
 
   updatedate(event) {
     this.courseItem.date = new Date(event);

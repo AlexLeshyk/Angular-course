@@ -69,7 +69,7 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.items$
     .pipe(
       map(x => {
-        console.log('items',x);
+        // console.log('items',x);
         this.courseItems = x.CourseItems;
         this.courseItemError = x.CourseItemError;
       })
