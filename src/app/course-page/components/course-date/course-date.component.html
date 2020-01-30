@@ -1,4 +1,4 @@
-<div class="form-group">
+<ng-container [formGroup]="dateForm">
   <label for="course-date">Date:</label>
   <input
     [value]="dateValue | date:'dd/MM/yyyy'"
@@ -7,5 +7,13 @@
     name="courseDate"
     placeholder="Course date"
     type="text"
+    formControlName="courseDate"
   />
-</div>
+  <div
+    *ngIf="dateForm.get('courseDate').invalid && dateForm.get('courseDate').touched"
+    class="validation">
+    <small *ngIf="dateForm.get('courseDate').errors.required">
+      This field couldn't be empty
+    </small>
+  </div>
+</ng-container>

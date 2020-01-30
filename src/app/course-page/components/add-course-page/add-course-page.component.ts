@@ -82,7 +82,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    // console.log('Form', this.form);
+    console.log('Form', this.form, this.form.controls.courseDate.value);
     const formData = {...this.form.value}
     console.log('Form Data', formData);
     const item: CourseItem = {

@@ -44,9 +44,12 @@
         </small>
       </div>
     </div>
-    <app-course-date
-      formControlName="courseDate"
-    ></app-course-date>
+    <div class="form-group">
+      <app-course-date
+        [groupDate]="form"
+        formControlName="courseDate"
+      ></app-course-date>
+    </div>
     <div class="form-group">
       <label for="course-duration">Duration:</label>
       <input
