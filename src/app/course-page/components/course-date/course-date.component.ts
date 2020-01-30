@@ -17,22 +17,18 @@ export class CourseDateComponent implements ControlValueAccessor, OnInit {
 
   dateValue = Date();
 
-  @Input('groupDate')
-  public dateForm: FormGroup;
+  public dateForm: FormGroup = new FormGroup({
+    courseDate: new FormControl(this.dateValue, [Validators.required])
+  })
 
   private onChange = (value: any) => {};
-  onTouched: any = () => {};
 
   ngOnInit() {
-    this.dateForm = new FormGroup({
-      courseDate: new FormControl('', [Validators.required])
-    })
   }
 
-  updateDate(event) {
-    this.dateValue = event;
-    this.onChange(event);
-    this.onTouched();
+  updateDate(val) {
+    this.dateValue = val;
+    this.onChange(this.dateValue);
   }
 
   registerOnChange(fn: any): void {
@@ -40,7 +36,6 @@ export class CourseDateComponent implements ControlValueAccessor, OnInit {
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
