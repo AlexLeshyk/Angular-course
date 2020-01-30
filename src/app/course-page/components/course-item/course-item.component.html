@@ -1,5 +1,5 @@
 <div class="course-item" app-course-item-style [courseItem]=courseItem
-  [ngClass]="{'top-rated': courseItem.topRated }">
+  [ngClass]="{'top-rated': courseItem.isTopRated }">
   <div class="course-item-info">
     <h4>{{ courseItem.name | uppercase }} #{{ courseItem.id }}</h4>
     <span class="duration">{{ courseItem.length | duration }}</span>

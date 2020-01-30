@@ -1,0 +1,11 @@
+<div class="form-group">
+  <label for="course-date">Date:</label>
+  <input
+    [value]="dateValue | date:'dd/MM/yyyy'"
+    (change)="updateDate($event)"
+    id="course-date"
+    name="courseDate"
+    placeholder="Course date"
+    type="text"
+  />
+</div>

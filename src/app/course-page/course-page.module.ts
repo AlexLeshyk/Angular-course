@@ -11,9 +11,10 @@ import { SortPipe } from './pipes/sort.pipe';
 import { AddCoursePageComponent } from './components/add-course-page/add-course-page.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { CourseDateComponent } from './components/course-date/course-date.component';
 
 @NgModule({
-  declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe, AddCoursePageComponent],
+  declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe, AddCoursePageComponent, CourseDateComponent],
   imports: [
     CommonModule,
     FormsModule,

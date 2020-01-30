@@ -51,7 +51,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
           id: 999,
           date: Date.now(),
           description: '',
-          topRated: false
+          isTopRated: false
         }
       }
       this.storageProperty = {
@@ -60,7 +60,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
         date: this.courseItem.date,
         description: this.courseItem.description,
         id: this.courseItem.id,
-        topRated: this.courseItem.topRated
+        isTopRated: this.courseItem.isTopRated
       }
     });
     this.form = new FormGroup({
@@ -79,19 +79,28 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.form.valid) {
-      console.log('Form', this.form);
-      const formData = {...this.form.value}
-      console.log('Form Data', formData);
-      if (this.isNewCourse) {
-        this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
-      } else {
-        this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: this.courseItem }));
-        this.itemCourseService.currentId = undefined;
-      }
-      this.router.navigate(['/courses']);
-      this.loadService.showLoad();
+    if (this.form.invalid) {
+      return;
     }
+    // console.log('Form', this.form);
+    const formData = {...this.form.value}
+    console.log('Form Data', formData);
+    const item: CourseItem = {
+      name: this.form.value.courseName,
+      length: this.form.value.length,
+      date: this.form.value.courseDate,
+      description: this.form.value.description,
+      id: this.form.value.courseId,
+      isTopRated: this.courseItem.isTopRated
+    }
+    if (this.isNewCourse) {
+      this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: item }));
+    } else {
+      this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
+      this.itemCourseService.currentId = undefined;
+    }
+    this.router.navigate(['/courses']);
+    this.loadService.showLoad();
   }
 
   onCancel() {
@@ -100,27 +109,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseItem.date = this.storageProperty.date;
     this.courseItem.description = this.storageProperty.description;
     this.courseItem.id = this.storageProperty.id;
-    this.courseItem.topRated = this.storageProperty.topRated;
+    this.courseItem.isTopRated = this.storageProperty.isTopRated;
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
-  }
-
-  // onSaveEdit(item: CourseItem) {
-  //   this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
-  //   this.router.navigate(['/courses']);
-  //   this.itemCourseService.currentId = undefined;
-  //   this.loadService.showLoad();
-  // }
-
-  // onSaveAdd() {
-  //   if (this.isNewCourse) {
-  //     this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
-  //   }
-  //   this.router.navigate(['/courses']);
-  //   this.loadService.showLoad();
-  // }
-
-  updatedate(event) {
-    this.courseItem.date = new Date(event);
   }
 }

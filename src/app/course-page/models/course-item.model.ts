@@ -4,7 +4,7 @@ interface ICourseItem {
   description: string;
   createDate?: object;
   length: number
-  topRated: boolean
+  isTopRated: boolean
 }
 
 export class CourseItem implements ICourseItem {
@@ -14,7 +14,7 @@ export class CourseItem implements ICourseItem {
     public description: string,
     public length: number,
     public date: any,
-    public topRated: boolean
+    public isTopRated: boolean
   ) {
   }
 }
