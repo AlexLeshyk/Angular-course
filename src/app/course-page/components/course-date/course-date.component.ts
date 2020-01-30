@@ -15,7 +15,7 @@ const VALUE_ACCESSOR: Provider = {
 })
 export class CourseDateComponent implements ControlValueAccessor, OnInit {
 
-  dateValue = Date();
+  private dateValue;
 
   public dateForm: FormGroup = new FormGroup({
     courseDate: new FormControl(this.dateValue, [Validators.required])
@@ -27,7 +27,7 @@ export class CourseDateComponent implements ControlValueAccessor, OnInit {
   }
 
   updateDate(val) {
-    this.dateValue = val;
+    this.dateValue = new Date(val);
     this.onChange(this.dateValue);
   }
 

@@ -15,7 +15,6 @@
       <app-course-item
         *ngFor="let course of courseItems | sort:'date'"
         [courseItem]="course"
-        [counter]="counter"
         (onDeleteItem)="onItemDelete($event)">
       </app-course-item>
     </div>

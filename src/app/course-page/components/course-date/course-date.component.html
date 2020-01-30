@@ -1,8 +1,8 @@
 <ng-container [formGroup]="dateForm">
   <label for="course-date">Date:</label>
   <input
-    [value]="dateValue | date:'dd/MM/yyyy'"
-    (change)="updateDate($event)"
+    [value]="dateValue | date:'d MMM, y'"
+    (change)="updateDate($event.target.value)"
     id="course-date"
     name="courseDate"
     placeholder="Course date"
