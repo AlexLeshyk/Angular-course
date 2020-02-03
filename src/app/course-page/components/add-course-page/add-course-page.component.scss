@@ -16,15 +16,6 @@
     margin-left: 20px;
   }
 
-  input {
-    width: 50%;
-
-    & + span {
-      display: inline-block;
-      margin-left: 20px;
-    }
-  }
-
   &:first-of-type {
     input {
       width: 100%;

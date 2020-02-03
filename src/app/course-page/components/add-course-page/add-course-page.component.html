@@ -50,15 +50,9 @@
       ></app-course-date>
     </div>
     <div class="form-group">
-      <label for="course-duration">Duration:</label>
-      <input
-      formControlName="length"
-      id="course-duration"
-      name="courseDuration"
-      placeholder="Course length"
-      type="text"
-      />
-      <span>{{ courseItem.length | duration }}</span>
+      <app-course-length
+        formControlName="length"
+      ></app-course-length>
     </div>
     <div class="form-group" *ngIf="isNewCourse">
       <label for="course-id">Course id:</label>

@@ -1,0 +1,23 @@
+<ng-container [formGroup]="lengthForm">
+  <label for="course-duration">Duration:</label>
+  <input
+    [value]="lengthValue"
+    (change)="updateLength($event.target.value)"
+    id="course-duration"
+    name="courseDuration"
+    placeholder="Course length"
+    formControlName="courseLength"
+  type="text"
+  />
+  <span>{{ lengthValue | duration }}</span>
+  <div
+    *ngIf="lengthForm.get('courseLength').invalid && lengthForm.get('courseLength').touched"
+    class="validation">
+    <small *ngIf="lengthForm.get('courseLength').errors.required">
+      This field couldn't be empty
+    </small>
+    <small *ngIf="lengthForm.get('courseLength').errors.pattern">
+      Should be only numbers here
+    </small>
+  </div>
+</ng-container>

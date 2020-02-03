@@ -1,0 +1,11 @@
+input {
+  width: 50%;
+
+  & + span {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 13px;
+    color: #9bc837;
+    line-height: 18px;
+  }
+}
