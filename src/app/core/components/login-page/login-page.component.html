@@ -1,29 +1,42 @@
 <div class="popup-outer"></div>
 
 <div class="modal">
-  <button type="button" class="btn secondary-btn close" (click)="onClose()">X</button>
-  <h2>Login</h2>
-  <div class="form-group">
-    <label for="">Email:</label>
-    <input
-    placeholder="Enter e-mail"
-    type="text"
-    required
-    [ngModel]="loginValue"
-    (ngModelChange)="onChange($event)"
-    />
-  </div>
-  <div class="form-group">
-    <label for="">Password:</label>
-    <input
-    placeholder="Enter password"
-    type="password"
-    required
-    [(ngModel)]="passwordValue"
-    />
-  </div>
-  <div class="form-group clear">
-    <a href="#">Forgot password?</a>
-    <button type="button" class="btn secondary-btn" (click)="onLogin()">Login</button>
-  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <button type="button" class="btn secondary-btn close" (click)="onClose()">X</button>
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="">Email:</label>
+      <input
+      formControlName="login"
+      placeholder="Enter your login"
+      type="text"
+      />
+      <div
+        *ngIf="form.get('login').invalid && form.get('login').touched"
+        class="validation">
+        <small *ngIf="form.get('login').errors.required">
+          This field couldn't be empty. Please enter login
+        </small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="">Password:</label>
+      <input
+      formControlName="password"
+      placeholder="Enter password"
+      type="password"
+      />
+      <div
+        *ngIf="form.get('password').invalid && form.get('password').touched"
+        class="validation">
+        <small *ngIf="form.get('password').errors.required">
+          This field couldn't be empty. Please enter password
+        </small>
+      </div>
+    </div>
+    <div class="form-group clear">
+      <a href="#">Forgot password?</a>
+      <button type="submit" class="btn secondary-btn" [disabled]="form.invalid">Login</button>
+    </div>
+  </form>
 </div>

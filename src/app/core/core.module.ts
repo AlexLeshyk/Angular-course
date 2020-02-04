@@ -4,7 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginButtonsComponent } from './components/login-buttons/login-buttons.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { AppRoutingModule } from '../app-routing.module';
@@ -16,7 +16,8 @@ import { LoadingComponent } from './components/loading/loading.component';
   imports: [
     CommonModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,

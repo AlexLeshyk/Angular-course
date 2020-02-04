@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { UserEntity } from '../../models/user-entity.model';
 import { Subscription } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -11,10 +12,11 @@ import { Subscription } from 'rxjs';
 })
 export class LoginPageComponent implements OnInit {
 
-  loginValue: string = 'mail@yahoo.com';
-  passwordValue: string = '111';
+  // loginValue: string = 'Morales';
+  // passwordValue: string = 'id';
   isAuth: boolean;
   authentication$: Subscription;
+  form : FormGroup;
 
   constructor(
     private router: Router,
@@ -22,6 +24,10 @@ export class LoginPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      login: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnDestroy() {
@@ -34,11 +40,11 @@ export class LoginPageComponent implements OnInit {
     this.router.navigate(['/courses']);
   }
 
-  onLogin() {
-    if (this.loginValue.trim() && this.passwordValue.trim()) {
+  submit() {
+    if (this.form.value.login.trim() && this.form.value.password.trim()) {
       const user: UserEntity = {
-        login: this.loginValue,
-        password: this.passwordValue
+        login: this.form.value.login,
+        password: this.form.value.password
       }
       this.authentication$ = this.auth.login(user).subscribe(() => {
         if ( this.auth.getAutorizationValue()) {
@@ -62,7 +68,7 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  onChange(event) {
-    this.loginValue = event;
-  }
+  // onChange(event) {
+  //   this.loginValue = event;
+  // }
 }
