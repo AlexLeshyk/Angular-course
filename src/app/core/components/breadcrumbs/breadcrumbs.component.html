@@ -1,6 +1,6 @@
 <div class="breadcrumbs-wrapper">
-  <ul *ngIf="auth.getAutorizationValue()">
+  <ul *ngIf="isAuthenticated">
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/courses']">Courses</a></li>
-    <li *ngIf="currentId">{{ courseItem.name }}</li>
+    <li *ngIf="courseTitle && courseTitle.length">{{ courseTitle }}</li>
   </ul>
 </div>

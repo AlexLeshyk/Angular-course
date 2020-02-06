@@ -1,10 +1,15 @@
+export interface Author {
+  name: string;
+}
+
 interface ICourseItem {
   id: number;
   name: string;
   description: string;
   createDate?: object;
-  length: number
-  isTopRated: boolean
+  length: number;
+  isTopRated: boolean;
+  authors?: Author[];
 }
 
 export class CourseItem implements ICourseItem {
@@ -14,7 +19,8 @@ export class CourseItem implements ICourseItem {
     public description: string,
     public length: number,
     public date: any,
-    public isTopRated: boolean
+    public isTopRated: boolean,
+    public authors: Author[]
   ) {
   }
 }

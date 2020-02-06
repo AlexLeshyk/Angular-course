@@ -9,14 +9,14 @@
     formControlName="courseLength"
   type="text"
   />
-  <span>{{ lengthValue | duration }}</span>
+  <span *ngIf="!lengthForm.get('courseLength').errors" >{{ lengthValue | duration }}</span>
   <div
     *ngIf="lengthForm.get('courseLength').invalid && lengthForm.get('courseLength').touched"
     class="validation">
     <small *ngIf="lengthForm.get('courseLength').errors.required">
       This field couldn't be empty
     </small>
-    <small *ngIf="lengthForm.get('courseLength').errors.pattern">
+    <small *ngIf="lengthForm.get('courseLength').errors.validateDigits">
       Should be only numbers here
     </small>
   </div>

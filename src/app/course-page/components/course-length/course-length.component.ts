@@ -1,25 +1,35 @@
-import { Component, forwardRef, Provider, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, forwardRef, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators, NG_VALIDATORS, Validator } from '@angular/forms';
+import { validateDigits } from '../../../shared/directives/number-validator.directive';
 
-const VALUE_ACCESSOR: Provider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CourseLengthComponent),
-  multi: true
+export interface IValidationState {
+  invalid: boolean;
 }
 
 @Component({
   selector: 'app-course-length',
   templateUrl: './course-length.component.html',
   styleUrls: ['./course-length.component.scss'],
-  providers: [VALUE_ACCESSOR]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CourseLengthComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => CourseLengthComponent),
+      multi: true
+    }
+  ]
 })
 
-export class CourseLengthComponent implements OnInit, ControlValueAccessor {
+export class CourseLengthComponent implements OnInit, ControlValueAccessor, Validator {
 
   private lengthValue: number;
 
   public lengthForm: FormGroup = new FormGroup({
-    courseLength: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+    courseLength: new FormControl(this.lengthValue, [Validators.required, validateDigits()])
   })
 
   constructor() { }
@@ -34,6 +44,16 @@ export class CourseLengthComponent implements OnInit, ControlValueAccessor {
     this.onChange(this.lengthValue);
   }
 
+  validate({ value }: FormControl): IValidationState {
+    const isNotValid = !(this.lengthValue);
+
+    return (
+      isNotValid && {
+        invalid: true
+      }
+    );
+  }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -46,6 +66,7 @@ export class CourseLengthComponent implements OnInit, ControlValueAccessor {
 
   writeValue(state: number): void {
     this.lengthValue = state;
+    this.lengthForm.patchValue({courseLength: this.lengthValue });
   }
 
 }

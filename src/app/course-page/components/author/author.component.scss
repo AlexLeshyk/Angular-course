@@ -1,0 +1,31 @@
+.chip {
+  display: inline-block;
+  padding: 5px 5px 5px 10px;
+  margin: 0 5px 10px;
+  font-size: 12px;
+  vertical-align: top;
+  background: #ccc;
+  border-radius: 8px;
+
+  span {
+    margin-left: 5px;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #fff;
+    text-align: center;
+    background: #30b6dd;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.chips-container {
+  margin: 0 -5px 10px;
+}
+
+input[type="text"] {
+  width: 50%;
+}

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CourseItem } from '../../models/course-item.model';
-import { ItemCourseService } from '../../services/item-course.service';
 import { LoadingService }  from '../../../shared/services/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SubscriptionLike, Observable } from 'rxjs';
@@ -27,7 +26,6 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   items$: Observable<CourseItemState>;
 
   constructor(
-    private itemCourseService: ItemCourseService,
     private route: ActivatedRoute,
     private router: Router,
     private loadService: LoadingService,
@@ -51,7 +49,12 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
           id: 999,
           date: Date.now(),
           description: '',
-          isTopRated: false
+          isTopRated: false,
+          authors: [
+            {
+              name: 'Alex'
+            }
+          ]
         }
       }
       this.storageProperty = {
@@ -60,7 +63,8 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
         date: this.courseItem.date,
         description: this.courseItem.description,
         id: this.courseItem.id,
-        isTopRated: this.courseItem.isTopRated
+        isTopRated: this.courseItem.isTopRated,
+        authors: this.courseItem.authors
       }
     });
     this.form = new FormGroup({
@@ -68,7 +72,9 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       description: new FormControl(this.courseItem.description, [Validators.maxLength(500),Validators.required]),
       length: new FormControl(this.courseItem.length),
       courseId: new FormControl(this.courseItem.id),
-      courseDate: new FormControl(this.courseItem.date)
+      courseDate: new FormControl(this.courseItem.date),
+      isTopRated: new FormControl(this.courseItem.isTopRated),
+      authors: new FormControl(this.courseItem.authors)
     })
   }
 
@@ -91,14 +97,15 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
       date: this.form.value.courseDate,
       description: this.form.value.description,
       id: this.form.value.courseId,
-      isTopRated: this.courseItem.isTopRated
+      isTopRated: this.form.value.isTopRated,
+      authors: this.form.value.authors
     }
     if (this.isNewCourse) {
       this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: item }));
     } else {
       this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
-      this.itemCourseService.currentId = undefined;
     }
+    this.form.reset();
     this.router.navigate(['/courses']);
     this.loadService.showLoad();
   }
@@ -111,6 +118,5 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
     this.courseItem.id = this.storageProperty.id;
     this.courseItem.isTopRated = this.storageProperty.isTopRated;
     this.router.navigate(['/courses']);
-    this.itemCourseService.currentId = undefined;
   }
 }

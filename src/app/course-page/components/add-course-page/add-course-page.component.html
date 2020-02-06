@@ -1,3 +1,4 @@
+<app-breadcrumbs [courseTitle]="form.get('courseName').value"></app-breadcrumbs>
 <div class="edit-course-wrapper">
   <h2 *ngIf="!isNewCourse; else pageTitle">Course update page:</h2>
   <ng-template #pageTitle>
@@ -45,14 +46,34 @@
       </div>
     </div>
     <div class="form-group">
-      <app-course-date
-        formControlName="courseDate"
-      ></app-course-date>
+      <div class="form-group-column">
+        <app-course-date
+          formControlName="courseDate"
+        ></app-course-date>
+      </div>
+      <div class="form-group-column">
+        <app-course-length
+          formControlName="length"
+        ></app-course-length>
+      </div>
     </div>
     <div class="form-group">
-      <app-course-length
-        formControlName="length"
-      ></app-course-length>
+      <span class="name">Top rated:</span>
+      <label for="course-rated">
+        <input name="isTopRated" formControlName="isTopRated" id="course-rated" type="checkbox">
+        <span class="toggle"></span>
+      </label>
+    </div>
+    <div class="form-group">
+      <app-author formControlName="authors"></app-author>
+      <!-- <pre> {{ form.get('authors').errors | json }}</pre>
+      <div
+        *ngIf="form.get('authors').invalid && form.get('authors').touched"
+        class="validation">
+        <small *ngIf="form.get('authors').errors.required">
+          Must be at least one author
+        </small>
+      </div> -->
     </div>
     <div class="form-group" *ngIf="isNewCourse">
       <label for="course-id">Course id:</label>

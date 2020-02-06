@@ -1,0 +1,27 @@
+<!-- <tag-input [ngModel]="itemsAsObjects" addOnPaste="true" (onTextChange)="add($event)"></tag-input> -->
+<ng-container [formGroup]="authorForm">
+
+  <div class="chips-container">
+    <div class="chip" *ngFor="let author of authors">
+      {{ author.name }} {{ author.lastName}}
+      <span *ngIf="removable" (click)="remove(author)">x</span>
+    </div>
+  </div>
+
+  <input
+    placeholder="Course author"
+    id="course-author"
+    name="courseAuthor"
+    formControlName="authors"
+    type="text"
+    (change)="add($event)"
+    (keydown.esc)="add($event)"
+  />
+  <div
+    *ngIf="!authors.length"
+    class="validation">
+    <small *ngIf="!authors.length && authorForm.get('authors').errors.required">
+      Must be at least one author
+    </small>
+  </div>
+</ng-container>

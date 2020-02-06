@@ -110,6 +110,7 @@ a {
 }
 
 .form-group {
+  position: relative;
   label {
     font-weight: bold;
     display: block;
@@ -138,6 +139,16 @@ a {
   margin-top: 1rem;
 }
 
+.form-group-column {
+  display: inline-block;
+  vertical-align: top;
+  width: 50%;
+}
+
+.form-group-column + .form-group-column {
+  padding-left: 10px;
+}
+
 input[type=text],
 input[type="password"],
 input[type="date"],
@@ -162,9 +173,10 @@ textarea  {
 }
 
 .validation {
-  padding-top: 3px;
+  padding-top: 2px;
   small {
     font-size: 11px;
+    line-height: 11px;
     color: red;
   }
 }

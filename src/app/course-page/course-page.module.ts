@@ -5,23 +5,33 @@ import { CourseItemComponent } from './components/course-item/course-item.compon
 import { SearchControlComponent } from './components/search-control/search-control.component';
 import { StyleDirective } from './directives/style.directive';
 import { DurationPipe } from './pipes/duration.pipe';
-import { FilterPipe } from './pipes/filter.pipe';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SortPipe } from './pipes/sort.pipe';
 import { AddCoursePageComponent } from './components/add-course-page/add-course-page.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { CoreModule } from '../core/core.module';
 import { CourseDateComponent } from './components/course-date/course-date.component';
 import { CourseLengthComponent } from './components/course-length/course-length.component';
+import { AuthorComponent } from './components/author/author.component';
 
 @NgModule({
-  declarations: [CoursePageComponent, CourseItemComponent, SearchControlComponent, StyleDirective, DurationPipe, FilterPipe, SortPipe, AddCoursePageComponent, CourseDateComponent, CourseLengthComponent],
+  declarations: [
+    CoursePageComponent,
+    CourseItemComponent,
+    SearchControlComponent,
+    StyleDirective,
+    DurationPipe,
+    SortPipe,
+    AddCoursePageComponent,
+    CourseDateComponent,
+    CourseLengthComponent,
+    AuthorComponent
+  ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   exports: [
     CoursePageComponent,

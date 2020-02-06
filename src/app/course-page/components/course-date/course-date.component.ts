@@ -1,19 +1,28 @@
-import { Component, forwardRef, Provider, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, forwardRef, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators, NG_VALIDATORS, Validator } from '@angular/forms';
 
-const VALUE_ACCESSOR: Provider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CourseDateComponent),
-  multi: true
+export interface IValidationState {
+  invalid: boolean;
 }
 
 @Component({
   selector: 'app-course-date',
   templateUrl: './course-date.component.html',
   styleUrls: ['./course-date.component.scss'],
-  providers: [VALUE_ACCESSOR]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CourseDateComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => CourseDateComponent),
+      multi: true
+    }
+  ]
 })
-export class CourseDateComponent implements ControlValueAccessor, OnInit {
+export class CourseDateComponent implements ControlValueAccessor, OnInit, Validator {
 
   private dateValue;
 
@@ -31,6 +40,16 @@ export class CourseDateComponent implements ControlValueAccessor, OnInit {
     this.onChange(this.dateValue);
   }
 
+  validate({ value }: FormControl): IValidationState {
+    const isNotValid = !(this.dateValue);
+
+    return (
+      isNotValid && {
+        invalid: true
+      }
+    );
+  }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -43,5 +62,6 @@ export class CourseDateComponent implements ControlValueAccessor, OnInit {
 
   writeValue(state: any): void {
     this.dateValue = state;
+    this.dateForm.patchValue({courseDate: this.dateValue });
   }
 }
