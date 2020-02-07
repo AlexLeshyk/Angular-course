@@ -3,9 +3,12 @@ import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { LoadingService }  from '../../../shared/services/loading.service';
-import { SubscriptionLike, Subject } from 'rxjs';
+import { SubscriptionLike, Subject, Observable } from 'rxjs';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import * as CourseItemActions from '../../course-item.action';
+import CourseItemState from '../../state/course-item.state';
 
 @Component({
   selector: 'app-course-page',
@@ -16,13 +19,13 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
   public inputValue = '';
   message: string;
-  error: '';
   startIndex: string = '0';
   count: string = '5';
   courseItems: CourseItem[] = [];
   private searchTextChanged = new Subject<string>();
+  items$: Observable<CourseItemState>;
+  courseItemError: Error = null;
 
-  public counter: number = 0;
   subscriptions: SubscriptionLike[] = [];
 
   constructor(
@@ -30,12 +33,10 @@ export class CoursePageComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private auth: AuthorizationService,
-    private loadService: LoadingService
-  ) { }
-
-  public change(): void {
-    this.counter = this.counter + 1;
-    console.log(this.counter);
+    private loadService: LoadingService,
+    private store: Store<{ course_items: CourseItemState }>
+  ) {
+    this.items$ = store.pipe(select('course_items'));
   }
 
   public onItemDelete(item: CourseItem) {
@@ -63,15 +64,18 @@ export class CoursePageComponent implements OnInit, OnDestroy {
   }
 
   fetchItems(startIndex: string, count: string) {
-    this.subscriptions.push(this.itemCourseService.getItems(startIndex,count).subscribe(items => {
-      this.courseItems = items;
-    }, error =>{
-      this.error = error.message;
-    }
-  ));
-  }
+    this.itemCourseService.count = count;
+    this.itemCourseService.startIndex = startIndex;
+    this.subscriptions.push(this.items$
+    .pipe(
+      map(x => {
+        console.log('items',x);
+        this.courseItems = x.CourseItems;
+        this.courseItemError = x.CourseItemError;
+      })
+    ).subscribe());
 
-  onSearch() {
+    this.store.dispatch(CourseItemActions.BeginGetCourseItemAction());
   }
 
   ngOnInit() {
@@ -97,7 +101,8 @@ export class CoursePageComponent implements OnInit, OnDestroy {
               this.courseItems = items;
           });
         }
-      }));
+      })
+    );
   }
 
   ngOnDestroy() {

@@ -3,8 +3,11 @@ import { CourseItem } from '../../models/course-item.model';
 import { ItemCourseService } from '../../services/item-course.service';
 import { LoadingService }  from '../../../shared/services/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { SubscriptionLike } from 'rxjs';
+import { SubscriptionLike, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import CourseItemState from '../../state/course-item.state';
+import * as CourseItemActions from '../../course-item.action';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-add-course-page',
@@ -19,13 +22,17 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   courseItems: CourseItem[];
   subscriptions: SubscriptionLike[] = [];
+  items$: Observable<CourseItemState>;
 
   constructor(
     private itemCourseService: ItemCourseService,
     private route: ActivatedRoute,
     private router: Router,
-    private loadService: LoadingService
-  ) { }
+    private loadService: LoadingService,
+    private store: Store<{ course_items: CourseItemState }>
+  ) {
+    this.items$ = store.pipe(select('course_items'));
+  }
 
   ngOnInit() {
     this.route.params.subscribe( (params: Params) => {
@@ -74,9 +81,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
   }
 
   onSaveEdit(item: CourseItem) {
-    this.subscriptions.push(this.itemCourseService.updateItem(item).subscribe( item => {
-      this.courseItem.id = item.id;
-    }));
+    this.store.dispatch(CourseItemActions.BeginUpdateCourseItemAction({ payload: item }));
     this.router.navigate(['/courses']);
     this.itemCourseService.currentId = undefined;
     this.loadService.showLoad();
@@ -84,9 +89,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
 
   onSaveAdd() {
     if (this.isNewCourse) {
-      this.subscriptions.push(this.itemCourseService.addItem(this.courseItem).subscribe( item => {
-        this.courseItems.push(item);
-      }));
+      this.store.dispatch(CourseItemActions.BeginCreateCourseItemAction({ payload: this.courseItem }));
     }
     this.router.navigate(['/courses']);
     this.loadService.showLoad();
