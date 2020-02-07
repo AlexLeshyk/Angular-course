@@ -1,6 +1,12 @@
 <div class="breadcrumbs-wrapper">
   <ul *ngIf="isAuthenticated">
     <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/courses']">Courses</a></li>
-    <li *ngIf="courseTitle && courseTitle.length">{{ courseTitle }}</li>
+    <li *ngIf="courseTitle && courseTitle.length">
+      {{
+        courseTitle && courseTitle.length
+          ? courseTitle
+          : title
+      }}
+    </li>
   </ul>
 </div>

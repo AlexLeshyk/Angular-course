@@ -90,12 +90,12 @@ export class CoursePageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.searchTextChanged
       .pipe(
-        debounceTime(1000),
+        debounceTime(800),
         distinctUntilChanged()
       ).subscribe(value => {
         this.inputValue = value;
 
-        if (this.inputValue.trim() && this.inputValue.length > 2 ) {
+        if (this.inputValue.trim() && this.inputValue.length > 3 ) {
           this.itemCourseService.onSearchItems(this.inputValue)
             .subscribe(items => {
               this.courseItems = items;

@@ -50,11 +50,7 @@ export class AddCoursePageComponent implements OnInit, OnDestroy {
           date: Date.now(),
           description: '',
           isTopRated: false,
-          authors: [
-            {
-              name: 'Alex'
-            }
-          ]
+          authors: []
         }
       }
       this.storageProperty = {

@@ -20,8 +20,11 @@
   <div
     *ngIf="!authors.length"
     class="validation">
-    <small *ngIf="!authors.length && authorForm.get('authors').errors.required">
-      Must be at least one author
+    <small *ngIf="!authors.length && authorForm.get('authors').touched">
+      Must be at least one author.
+    </small>
+    <small *ngIf="authorForm.get('authors').errors.required">
+      This field couldn't be empty.
     </small>
   </div>
 </ng-container>

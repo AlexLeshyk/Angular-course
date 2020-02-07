@@ -1,4 +1,4 @@
-<app-breadcrumbs [courseTitle]="form.get('courseName').value"></app-breadcrumbs>
+<app-breadcrumbs [courseTitle]="form.get('courseName').value" *ngIf="!isNewCourse"></app-breadcrumbs>
 <div class="edit-course-wrapper">
   <h2 *ngIf="!isNewCourse; else pageTitle">Course update page:</h2>
   <ng-template #pageTitle>
@@ -66,14 +66,6 @@
     </div>
     <div class="form-group">
       <app-author formControlName="authors"></app-author>
-      <!-- <pre> {{ form.get('authors').errors | json }}</pre>
-      <div
-        *ngIf="form.get('authors').invalid && form.get('authors').touched"
-        class="validation">
-        <small *ngIf="form.get('authors').errors.required">
-          Must be at least one author
-        </small>
-      </div> -->
     </div>
     <div class="form-group" *ngIf="isNewCourse">
       <label for="course-id">Course id:</label>
