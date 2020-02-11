@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizationService } from  '../../../shared/services/authorization.service';
 import { UserEntity } from '../../models/user-entity.model';
@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
 
   // loginValue: string = 'Morales';
   // passwordValue: string = 'id';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CourseItem } from '../models/course-item.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { CourseItem, Author } from '../models/course-item.model';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import {catchError, map, debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 
@@ -10,10 +10,25 @@ import {catchError, map, debounceTime, tap, distinctUntilChanged } from 'rxjs/op
 export class ItemCourseService {
   public currentId: number;
   public items: CourseItem[] = [];
+  public authors: Author[] = [];
   count: string;
   startIndex: string;
 
   constructor(private http: HttpClient) { }
+
+  // get list of authors
+  getAuthors(): Observable<Author[]> {
+    return this.http.get<Author[]>('http://localhost:3004/authors')
+    .pipe(
+      map(response => {
+        return response
+      }),
+      catchError(error => {
+        console.log('Error: ', error.message)
+        return throwError(error)
+      })
+    )
+  }
 
   // Get list
   getItems(): Observable<CourseItem[]> {

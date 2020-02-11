@@ -1,7 +1,9 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { ENTER, COMMA, SPACE } from '@angular/cdk/keycodes';
 import { Author } from '../../models/course-item.model';
+import { ItemCourseService } from '../../services/item-course.service';
+import { Subscription } from 'rxjs';
 
 export interface IValidationState {
   invalid: boolean;
@@ -24,19 +26,30 @@ export interface IValidationState {
     }
   ]
 })
-export class AuthorComponent implements OnInit, ControlValueAccessor, Validator {
+export class AuthorComponent implements OnInit, ControlValueAccessor, Validator, OnDestroy {
 
-  constructor() { }
+  constructor(
+    private itemCourseService: ItemCourseService,
+  ) { }
+
 
   ngOnInit() {
+    this.author$ = this.itemCourseService.getAuthors().subscribe(authors => {
+        this.authorsItems = authors;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.author$) {
+      this.author$.unsubscribe();
+    }
   }
 
   public authors: Author[];
-  public authorForm: FormGroup = new FormGroup({
-    authors: new FormControl(this.authors, [Validators.required])
-  })
+  authorsItems: Author[] = [];
+  author$: Subscription;
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
   public removable: boolean = true;
 
   public onChange = (authors: Author[]) => {};
@@ -72,16 +85,6 @@ export class AuthorComponent implements OnInit, ControlValueAccessor, Validator 
   }
 
   add(event: any): void {
-    const input = event.target;
-    const value = event.target.value;
-
-    if ((value || '').trim()) {
-      this.authors.push({ name: value.trim() });
-    }
-
-    if (input) {
-      input.value = '';
-    }
 
     this.onChange(this.value);
   }

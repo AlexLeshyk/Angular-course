@@ -1,30 +1,25 @@
-<!-- <tag-input [ngModel]="itemsAsObjects" addOnPaste="true" (onTextChange)="add($event)"></tag-input> -->
-<ng-container [formGroup]="authorForm">
-
-  <div class="chips-container">
-    <div class="chip" *ngFor="let author of authors">
-      {{ author.name }} {{ author.lastName}}
-      <span *ngIf="removable" (click)="remove(author)">x</span>
-    </div>
-  </div>
-
-  <input
-    placeholder="Course author"
-    id="course-author"
-    name="courseAuthor"
-    formControlName="authors"
-    type="text"
-    (change)="add($event)"
-    (keydown.esc)="add($event)"
-  />
-  <div
-    *ngIf="!authors.length"
-    class="validation">
-    <small *ngIf="!authors.length && authorForm.get('authors').touched">
-      Must be at least one author.
-    </small>
-    <small *ngIf="authorForm.get('authors').errors.required">
-      This field couldn't be empty.
-    </small>
-  </div>
-</ng-container>
+<tag-input
+  [(ngModel)]="authors"
+  [displayBy]="'name'"
+  [placeholder]="'Add a new author'"
+  [separatorKeyCodes]="separatorKeysCodes"
+  [addOnBlur]="'true'"
+  [inputClass]="'chips-container'"
+  [theme]="'custom-theme'"
+  [identifyBy]="'id'"
+  (onAdd)="add($event)"
+  (onRemove)="remove($event)">
+  <tag-input-dropdown
+    [showDropdownIfEmpty]="true"
+    [autocompleteItems]="authorsItems"
+    [displayBy]="'name'"
+    [identifyBy]="'id'">
+  </tag-input-dropdown>
+</tag-input>
+<div
+  *ngIf="!authors.length"
+  class="validation">
+  <small *ngIf="!authors.length">
+    Must be at least one author.
+  </small>
+</div>

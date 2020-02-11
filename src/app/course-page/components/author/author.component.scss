@@ -29,3 +29,51 @@
 input[type="text"] {
   width: 50%;
 }
+
+@import "~node_modules/ngx-chips/core/styles/core/_core.scss";
+
+$primary-color: #30b6dd;
+$primary-color-dark: darken($primary-color, 10%);
+
+$custom-theme: (
+  container-border-bottom: 1px solid $primary-color
+);
+
+$custom-tag-theme: (
+  background: $primary-color,
+  background-focused: $primary-color-dark,
+  background-active: $primary-color-dark,
+  background-hover: $primary-color-dark,
+  color: #fff,
+  color-hover: #fff,
+  border-radius: 8px,
+  font-size: 14px
+);
+
+$custom-icon-theme: (
+  fill: #fff,
+  fill-focus: #eee,
+  transition: all 0.35s
+);
+
+::ng-deep tag-input .ng2-tag-input.custom-theme {
+  @include tag-input-theme($custom-theme);
+}
+
+::ng-deep tag-input .ng2-tag-input.custom-theme tag {
+  @include tag-theme($custom-tag-theme);
+}
+
+::ng-deep tag-input .ng2-tag-input.custom-theme tag delete-icon {
+  @include icon-theme($custom-icon-theme);
+}
+
+::ng-deep tag-input .ng2-tag-input.custom-theme.ng2-tag-input--focused {
+  border-bottom: 1px solid $primary-color-dark;
+}
+
+::ng-deep tag-input .ng2-tag-input.custom-theme .chips-container {
+  border-radius: 0;
+  font-size: 16px;
+  color: #656565;
+}
